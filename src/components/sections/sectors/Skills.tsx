@@ -158,8 +158,7 @@ export default function SkillsSection() {
                             transition={{ duration: 0.8, delay: 0.6 }}
                         >
                             <MagneticButton
-                                className="px-6 py-3 border font-heading text-sm uppercase tracking-widest"
-                                style={{ borderColor: '#EC954E' } as any}
+                                className="px-6 py-3 border border-[#EC954E] font-heading text-sm uppercase tracking-widest"
                             >
                                 View Programs <ArrowRight className="w-4 h-4" />
                             </MagneticButton>

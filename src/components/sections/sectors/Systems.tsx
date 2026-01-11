@@ -144,8 +144,7 @@ export default function SystemsSection() {
                             transition={{ duration: 0.8, delay: 0.5 }}
                         >
                             <MagneticButton
-                                className="px-6 py-3 border font-heading text-sm uppercase tracking-widest"
-                                style={{ borderColor: '#8D68AA' } as any}
+                                className="px-6 py-3 border border-[#8D68AA] font-heading text-sm uppercase tracking-widest"
                             >
                                 View Architecture <ArrowRight className="w-4 h-4" />
                             </MagneticButton>

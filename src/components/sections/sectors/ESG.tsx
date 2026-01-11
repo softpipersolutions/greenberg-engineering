@@ -153,8 +153,7 @@ export default function ESGSection() {
                             transition={{ duration: 0.8, delay: 0.5 }}
                         >
                             <MagneticButton
-                                className="px-6 py-3 border font-heading text-sm uppercase tracking-widest"
-                                style={{ borderColor: '#528940' } as any}
+                                className="px-6 py-3 border border-[#528940] font-heading text-sm uppercase tracking-widest"
                             >
                                 Our Initiatives <ArrowRight className="w-4 h-4" />
                             </MagneticButton>

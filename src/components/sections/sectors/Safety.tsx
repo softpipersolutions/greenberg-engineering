@@ -141,8 +141,7 @@ export default function SafetySection() {
                             transition={{ duration: 0.8, delay: 0.6 }}
                         >
                             <MagneticButton
-                                className="px-6 py-3 border font-heading text-sm uppercase tracking-widest"
-                                style={{ borderColor: '#D40114' } as any}
+                                className="px-6 py-3 border border-[#D40114] font-heading text-sm uppercase tracking-widest"
                             >
                                 Safety Policy <ArrowRight className="w-4 h-4" />
                             </MagneticButton>

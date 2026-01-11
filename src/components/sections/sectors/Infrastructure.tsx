@@ -158,8 +158,7 @@ export default function InfrastructureSection() {
                             transition={{ duration: 0.8, delay: 0.5 }}
                         >
                             <MagneticButton
-                                className="px-6 py-3 border font-heading text-sm uppercase tracking-widest"
-                                style={{ borderColor: '#2C5DA9' } as any}
+                                className="px-6 py-3 border border-[#2C5DA9] font-heading text-sm uppercase tracking-widest"
                             >
                                 Explore Projects <ArrowRight className="w-4 h-4" />
                             </MagneticButton>
