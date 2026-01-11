@@ -192,124 +192,161 @@ function SkillBar({ skill, index }: { skill: { name: string; progress: number };
 }
 
 function KnowledgeVisualization({ scrollProgress }: { scrollProgress: any }) {
+    // Stage the animations for assembling the structure
+    // Base layer
+    const y1 = useTransform(scrollProgress, [0, 0.3], [100, 0]);
+    const o1 = useTransform(scrollProgress, [0, 0.2], [0, 1]);
+
+    // Middle layer
+    const y2 = useTransform(scrollProgress, [0.1, 0.4], [150, 0]);
+    const o2 = useTransform(scrollProgress, [0.1, 0.3], [0, 1]);
+
+    // Top layer
+    const y3 = useTransform(scrollProgress, [0.2, 0.5], [200, 0]);
+    const o3 = useTransform(scrollProgress, [0.2, 0.4], [0, 1]);
+
+    // Connector lines opacity
+    const lineOpacity = useTransform(scrollProgress, [0.4, 0.6], [0, 0.6]);
+
     return (
         <div className="relative w-full h-full flex items-center justify-center">
-            {/* Brain outline */}
             <svg
-                viewBox="0 0 200 200"
-                className="w-full h-full max-w-[400px]"
+                viewBox="0 0 400 500"
+                className="w-full h-full max-w-[500px]"
                 fill="none"
+                style={{ overflow: 'visible' }}
             >
-                {/* Brain shape paths */}
-                <motion.path
-                    d="M100 20 Q60 30 50 60 Q40 90 50 120 Q60 150 80 170 Q100 185 100 180"
-                    stroke="#EC954E"
-                    strokeWidth="1"
-                    fill="none"
-                    style={{
-                        pathLength: useTransform(scrollProgress, [0.1, 0.4], [0, 1]),
-                        opacity: 0.5,
-                    }}
-                />
-                <motion.path
-                    d="M100 20 Q140 30 150 60 Q160 90 150 120 Q140 150 120 170 Q100 185 100 180"
-                    stroke="#EC954E"
-                    strokeWidth="1"
-                    fill="none"
-                    style={{
-                        pathLength: useTransform(scrollProgress, [0.2, 0.5], [0, 1]),
-                        opacity: 0.5,
-                    }}
+                <defs>
+                    <linearGradient id="isoGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                        <stop offset="0%" stopColor="#EC954E" stopOpacity="0.2" />
+                        <stop offset="100%" stopColor="#EC954E" stopOpacity="0.05" />
+                    </linearGradient>
+                    <filter id="glow-iso">
+                        <feGaussianBlur stdDeviation="5" result="coloredBlur" />
+                        <feMerge>
+                            <feMergeNode in="coloredBlur" />
+                            <feMergeNode in="SourceGraphic" />
+                        </feMerge>
+                    </filter>
+                </defs>
+
+                {/* Central Axis Guide (Subtle) */}
+                <motion.line
+                    x1="200" y1="400" x2="200" y2="100"
+                    stroke="#EC954E" strokeWidth="1" strokeDasharray="4 4"
+                    style={{ opacity: 0.1 }}
                 />
 
-                {/* Neural connections */}
-                {[
-                    { x1: 60, y1: 70, x2: 90, y2: 90 },
-                    { x1: 140, y1: 70, x2: 110, y2: 90 },
-                    { x1: 70, y1: 120, x2: 100, y2: 100 },
-                    { x1: 130, y1: 120, x2: 100, y2: 100 },
-                    { x1: 80, y1: 50, x2: 100, y2: 70 },
-                    { x1: 120, y1: 50, x2: 100, y2: 70 },
-                ].map((line, i) => (
-                    <motion.line
-                        key={i}
-                        x1={line.x1}
-                        y1={line.y1}
-                        x2={line.x2}
-                        y2={line.y2}
+                {/* Level 1: Foundation (The Base) */}
+                <motion.g style={{ translateY: y1, opacity: o1 }}>
+                    {/* Isometric Base Plate */}
+                    <path
+                        d="M200 420 L280 380 L200 340 L120 380 Z"
+                        fill="url(#isoGrad)"
+                        stroke="#EC954E"
+                        strokeWidth="1.5"
+                    />
+                    {/* Inner detail */}
+                    <path
+                        d="M200 400 L260 370"
                         stroke="#EC954E"
                         strokeWidth="0.5"
-                        opacity={0.3}
-                        initial={{ pathLength: 0 }}
-                        whileInView={{ pathLength: 1 }}
-                        viewport={{ once: true, margin: '0px 0px -150px 0px' }}
-                        transition={{ duration: 0.8, delay: 0.5 + i * 0.1 }}
+                        opacity="0.4"
                     />
-                ))}
+                    <path
+                        d="M200 400 L140 370"
+                        stroke="#EC954E"
+                        strokeWidth="0.5"
+                        opacity="0.4"
+                    />
+                    <circle cx="200" cy="380" r="4" fill="#EC954E" />
+                </motion.g>
 
-                {/* Knowledge nodes */}
-                {[
-                    { cx: 60, cy: 70, r: 4 },
-                    { cx: 140, cy: 70, r: 4 },
-                    { cx: 100, cy: 100, r: 6 },
-                    { cx: 70, cy: 120, r: 3 },
-                    { cx: 130, cy: 120, r: 3 },
-                    { cx: 100, cy: 70, r: 4 },
-                    { cx: 80, cy: 50, r: 3 },
-                    { cx: 120, cy: 50, r: 3 },
-                ].map((node, i) => (
+                {/* Connecting Trusses 1-2 */}
+                <motion.g style={{ opacity: lineOpacity }}>
+                    <line x1="200" y1="340" x2="200" y2="300" stroke="#EC954E" strokeWidth="1" strokeDasharray="2 2" />
+                    <line x1="120" y1="380" x2="140" y2="320" stroke="#EC954E" strokeWidth="0.5" opacity="0.3" />
+                    <line x1="280" y1="380" x2="260" y2="320" stroke="#EC954E" strokeWidth="0.5" opacity="0.3" />
+                </motion.g>
+
+                {/* Level 2: Structure (The Core) */}
+                <motion.g style={{ translateY: y2, opacity: o2 }}>
+                    {/* Floating Cube Frame */}
+                    <path
+                        d="M200 320 L260 290 L200 260 L140 290 Z"
+                        fill="url(#isoGrad)"
+                        stroke="#EC954E"
+                        strokeWidth="1.5"
+                    />
+                    <path d="M140 290 L140 320 L200 350 L260 320 L260 290" stroke="#EC954E" strokeWidth="1" fill="none" opacity="0.5" />
+                    <path d="M200 350 L200 320" stroke="#EC954E" strokeWidth="1" opacity="0.5" />
+
+                    {/* Central Core Pulse */}
                     <motion.circle
-                        key={i}
-                        cx={node.cx}
-                        cy={node.cy}
-                        r={node.r}
+                        cx="200" cy="305" r="8"
                         fill="#EC954E"
-                        initial={{ scale: 0, opacity: 0 }}
-                        whileInView={{ scale: 1, opacity: 0.8 }}
-                        viewport={{ once: true, margin: '0px 0px -150px 0px' }}
-                        transition={{ duration: 0.5, delay: 0.3 + i * 0.1 }}
+                        animate={{ opacity: [0.5, 1, 0.5], scale: [1, 1.2, 1] }}
+                        transition={{ duration: 2, repeat: Infinity }}
+                        filter="url(#glow-iso)"
                     />
-                ))}
+                </motion.g>
 
-                {/* Pulse on center node */}
-                <motion.circle
-                    cx={100}
-                    cy={100}
-                    r={6}
-                    fill="none"
-                    stroke="#EC954E"
-                    strokeWidth="1"
-                    animate={{
-                        r: [6, 20, 6],
-                        opacity: [0.8, 0, 0.8],
-                    }}
-                    transition={{
-                        duration: 2,
-                        repeat: Infinity,
-                    }}
-                />
+                {/* Connecting Trusses 2-3 */}
+                <motion.g style={{ opacity: lineOpacity }}>
+                    <line x1="200" y1="260" x2="200" y2="220" stroke="#EC954E" strokeWidth="1" strokeDasharray="2 2" />
+                </motion.g>
+
+                {/* Level 3: Excellence (The Peak) */}
+                <motion.g style={{ translateY: y3, opacity: o3 }}>
+                    {/* Top Pyramid/Crystal */}
+                    <path
+                        d="M200 220 L240 200 L200 140 L160 200 Z"
+                        fill="url(#isoGrad)"
+                        stroke="#EC954E"
+                        strokeWidth="1.5"
+                    />
+                    {/* Floating Rings around peak */}
+                    <motion.ellipse
+                        cx="200" cy="180" rx="60" ry="20"
+                        fill="none"
+                        stroke="#EC954E"
+                        strokeWidth="0.5"
+                        strokeDasharray="4 4"
+                        animate={{ rotate: 360 }}
+                        transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
+                        style={{ originX: "200px", originY: "180px", opacity: 0.4 }}
+                    />
+                    <motion.ellipse
+                        cx="200" cy="180" rx="40" ry="12"
+                        fill="none"
+                        stroke="#EC954E"
+                        strokeWidth="0.5"
+                        animate={{ rotate: -360 }}
+                        transition={{ duration: 15, repeat: Infinity, ease: "linear" }}
+                        style={{ originX: "200px", originY: "180px", opacity: 0.6 }}
+                    />
+
+                    {/* Spark at top */}
+                    <circle cx="200" cy="140" r="3" fill="#fff" filter="url(#glow-iso)" />
+                </motion.g>
             </svg>
 
-            {/* Floating knowledge tags */}
-            {['Learn', 'Grow', 'Excel', 'Lead'].map((tag, i) => (
+            {/* Orbiting text labels */}
+            {[
+                { text: 'Foundation', y: '75%', delay: 0 },
+                { text: 'Structure', y: '50%', delay: 1 },
+                { text: 'Mastery', y: '25%', delay: 2 }
+            ].map((item, i) => (
                 <motion.div
-                    key={tag}
-                    className="absolute px-3 py-1 border border-white/10 font-body text-xs text-stark/40"
-                    style={{
-                        left: `${20 + (i % 2) * 60}%`,
-                        top: `${20 + Math.floor(i / 2) * 60}%`,
-                    }}
-                    animate={{
-                        y: [0, -10, 0],
-                        opacity: [0.4, 0.8, 0.4],
-                    }}
-                    transition={{
-                        duration: 3,
-                        delay: i * 0.5,
-                        repeat: Infinity,
-                    }}
+                    key={item.text}
+                    className="absolute right-[10%] font-mono text-xs text-[#EC954E] border-b border-[#EC954E]/30 pb-1"
+                    style={{ top: item.y }}
+                    initial={{ opacity: 0, x: -20 }}
+                    whileInView={{ opacity: 1, x: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ delay: 0.5 + item.delay * 0.3 }}
                 >
-                    {tag}
+                    0{i + 1} // {item.text}
                 </motion.div>
             ))}
         </div>
