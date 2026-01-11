@@ -5,10 +5,12 @@ import { useState, useEffect } from 'react';
 import { Menu, X } from 'lucide-react';
 
 const navItems = [
-    { label: 'About', href: '#manifesto' },
-    { label: 'Sectors', href: '#sectors' },
-    { label: 'Projects', href: '#projects' },
-    { label: 'Contact', href: '#contact' },
+    { label: 'About', href: '/about' },
+    { label: 'Infra-Q', href: '/infra-q' },
+    { label: 'Insights', href: '/insights' },
+    { label: 'Sectors', href: '/#sectors' },
+    { label: 'Projects', href: '/#projects' },
+    { label: 'Contact', href: '/#contact' },
 ];
 
 export default function Navigation() {
@@ -43,7 +45,7 @@ export default function Navigation() {
                 <div className="flex items-center justify-between h-20 md:h-24">
                     {/* Logo */}
                     <motion.a
-                        href="#"
+                        href="/"
                         className="font-heading text-xl md:text-2xl font-bold text-stark tracking-tight"
                         whileHover={{ scale: 1.02 }}
                         whileTap={{ scale: 0.98 }}
