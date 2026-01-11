@@ -10,6 +10,7 @@ import Projects from "@/components/sections/Projects";
 import Testimonials from "@/components/sections/Testimonials";
 import Contact from "@/components/sections/Contact";
 import Footer from "@/components/sections/Footer";
+import InfraQPreview from "@/components/sections/InfraQPreview";
 
 export default function Home() {
   return (
@@ -34,6 +35,9 @@ export default function Home() {
 
       {/* Section 9: Projects */}
       <Projects />
+
+      {/* Section 9.5: Infra-Q Preview */}
+      <InfraQPreview />
 
       {/* Section 10: Testimonials */}
       <Testimonials />
