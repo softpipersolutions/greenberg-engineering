@@ -46,7 +46,7 @@ export default function InfrastructureSection() {
                 <motion.div
                     className="absolute top-1/4 left-0 w-full h-[1px]"
                     style={{
-                        background: SECTOR_GRADIENTS.infra,
+                        background: SECTOR_GRADIENTS.infrastructure,
                         scaleX: useTransform(scrollYProgress, [0.1, 0.4], [0, 1]),
                         transformOrigin: 'left',
                     }}
@@ -54,7 +54,7 @@ export default function InfrastructureSection() {
                 <motion.div
                     className="absolute top-3/4 right-0 w-full h-[1px]"
                     style={{
-                        background: SECTOR_GRADIENTS.infra,
+                        background: SECTOR_GRADIENTS.infrastructure,
                         scaleX: useTransform(scrollYProgress, [0.2, 0.5], [0, 1]),
                         transformOrigin: 'right',
                     }}
@@ -65,7 +65,7 @@ export default function InfrastructureSection() {
             <motion.div
                 className="absolute inset-0 pointer-events-none"
                 style={{
-                    background: SECTOR_GRADIENTS.infra,
+                    background: SECTOR_GRADIENTS.infrastructure,
                     opacity: useTransform(scrollYProgress, [0.3, 0.5, 0.7], [0, 0.1, 0]),
                 }}
             />
@@ -108,7 +108,7 @@ export default function InfrastructureSection() {
                             <br />
                             <span
                                 className="bg-clip-text text-transparent"
-                                style={{ backgroundImage: SECTOR_GRADIENTS.infra }}
+                                style={{ backgroundImage: SECTOR_GRADIENTS.infrastructure }}
                             >
                                 structure
                             </span>

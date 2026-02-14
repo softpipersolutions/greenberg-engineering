@@ -2,7 +2,7 @@
 // These gradients are revealed on hover interactions
 
 export const SECTOR_GRADIENTS = {
-  infra: 'linear-gradient(135deg, #0A0F3C, #2C5DA9, #C8DAF9)',
+  infrastructure: 'linear-gradient(135deg, #0A0F3C, #2C5DA9, #C8DAF9)',
   esg: 'linear-gradient(135deg, #33644A, #528940, #A1DDAA)',
   systems: 'linear-gradient(135deg, #3A294F, #8D68AA, #F4D6FF)',
   skills: 'linear-gradient(135deg, #844212, #EC954E, #FFD9B2)',
@@ -21,7 +21,7 @@ export interface Sector {
 
 export const SECTORS: Sector[] = [
   {
-    id: 'infra',
+    id: 'infrastructure',
     name: 'Infrastructure',
     tagline: 'Winning Expertise',
     description: 'Building the foundations of tomorrow',

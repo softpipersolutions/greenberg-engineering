@@ -12,7 +12,7 @@ const projects = [
         category: 'Infrastructure',
         location: 'Mumbai, India',
         year: '2024',
-        sector: 'infra',
+        sector: 'infrastructure',
         image: '/api/placeholder/600/800',
     },
     {
@@ -57,7 +57,7 @@ const projects = [
         category: 'Infrastructure',
         location: 'Kenya',
         year: '2024',
-        sector: 'infra',
+        sector: 'infrastructure',
         image: '/api/placeholder/600/800',
     },
 ];

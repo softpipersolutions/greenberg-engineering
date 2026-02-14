@@ -4,9 +4,24 @@ import { motion } from 'framer-motion';
 import { ArrowUp, Github, Linkedin, Twitter, Instagram } from 'lucide-react';
 
 const footerLinks = {
-    Sectors: ['Infrastructure', 'ESG', 'Systems', 'Skills', 'Safety'],
-    Company: ['About Us', 'Careers', 'News', 'Contact'],
-    Resources: ['Case Studies', 'Insights', 'Downloads', 'FAQ'],
+    Sectors: [
+        { label: 'Infrastructure', href: '/sectors/infrastructure' },
+        { label: 'ESG', href: '/sectors/esg' },
+        { label: 'Systems', href: '/sectors/systems' },
+        { label: 'Skills', href: '/sectors/skills' },
+        { label: 'Safety', href: '/sectors/safety' },
+    ],
+    Company: [
+        { label: 'Overview', href: '/company' },
+        { label: 'Leadership', href: '/company/leadership' },
+        { label: 'Careers', href: '/company/careers' },
+        { label: 'Contact', href: '/#contact' },
+    ],
+    Resources: [
+        { label: 'Downloads', href: '/resources/downloads' },
+        { label: 'Infra-Q', href: '/infra-q' },
+        { label: 'Insights', href: '/insights' },
+    ],
 };
 
 const socialLinks = [
@@ -32,7 +47,7 @@ export default function Footer() {
                         {/* Brand column */}
                         <div className="lg:col-span-2">
                             <motion.a
-                                href="#"
+                                href="/"
                                 className="inline-block font-heading text-3xl font-bold text-stark tracking-tight mb-6"
                                 whileHover={{ scale: 1.02 }}
                             >
@@ -69,18 +84,18 @@ export default function Footer() {
                                 <ul className="space-y-4">
                                     {links.map((link, linkIndex) => (
                                         <motion.li
-                                            key={link}
+                                            key={link.label}
                                             initial={{ opacity: 0, x: -10 }}
                                             whileInView={{ opacity: 1, x: 0 }}
                                             viewport={{ once: true, margin: '0px 0px -150px 0px' }}
                                             transition={{ delay: columnIndex * 0.1 + linkIndex * 0.05 }}
                                         >
                                             <motion.a
-                                                href="#"
+                                                href={link.href}
                                                 className="font-body text-sm text-stark/50 hover:text-stark transition-colors inline-block"
                                                 whileHover={{ x: 3 }}
                                             >
-                                                {link}
+                                                {link.label}
                                             </motion.a>
                                         </motion.li>
                                     ))}
@@ -128,14 +143,14 @@ export default function Footer() {
                         © {currentYear} Greenberg Engineering. All rights reserved.
                     </p>
                     <div className="flex gap-6">
-                        <a href="#" className="font-body text-xs text-stark/30 hover:text-stark/60 transition-colors">
+                        <a href="/legal/privacy" className="font-body text-xs text-stark/30 hover:text-stark/60 transition-colors">
                             Privacy Policy
                         </a>
-                        <a href="#" className="font-body text-xs text-stark/30 hover:text-stark/60 transition-colors">
+                        <a href="/legal/terms" className="font-body text-xs text-stark/30 hover:text-stark/60 transition-colors">
                             Terms of Service
                         </a>
-                        <a href="#" className="font-body text-xs text-stark/30 hover:text-stark/60 transition-colors">
-                            Cookies
+                        <a href="/legal/impressum" className="font-body text-xs text-stark/30 hover:text-stark/60 transition-colors">
+                            Impressum
                         </a>
                     </div>
                 </div>

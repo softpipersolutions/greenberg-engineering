@@ -1,246 +1,250 @@
 'use client';
 
-import { motion, useMotionValue, useSpring, useTransform, useScroll } from 'framer-motion';
-import { useEffect, useRef, useState } from 'react';
+import { motion, useScroll, useTransform, useMotionValue } from 'framer-motion';
+import { useRef, useEffect } from 'react';
+import { ArrowDown, ArrowRight } from 'lucide-react';
 import MagneticButton from '@/components/ui/MagneticButton';
-import { ArrowDown } from 'lucide-react';
 
-const HERO_TEXT = 'CREATE THE FUTURE';
+/*
+ * The keyword wall: a dense vertical list that scrolls upward in an infinite loop.
+ * "GREENBERG ENGINEERING" is rendered as a separate sticky overlay, centered vertically.
+ * The container has a CSS 3D perspective tilt to curve the list in space.
+ *
+ * Each keyword has: text, size class, opacity, and optional indent for organic feel.
+ */
+/* Keywords that loop — hero item removed (it's now a fixed overlay) */
+const WALL_ITEMS = [
+    { text: 'Audit & Feedback', style: 'italic', opacity: 0.15 },
+    { text: 'Operational Excellence', style: 'italic', opacity: 0.2 },
+    { text: 'Pollution Control', style: 'italic', opacity: 0.2 },
+    { text: 'Civic Engineering', style: 'italic', opacity: 0.3 },
+    { text: 'Training & Skills', style: 'italic', opacity: 0.3 },
+    { text: 'Risk Engineering', style: 'italic', opacity: 0.35 },
+    { text: 'Life-Cycle Thinking', style: 'italic', opacity: 0.4 },
+    { text: 'ESG', style: 'bold', opacity: 0.5 },
+    { text: 'Codified Memory', style: 'italic', opacity: 0.5 },
+    { text: 'Health & Safety', style: 'italic', opacity: 0.55 },
+    { text: 'Infrastructure', style: 'italic', opacity: 0.55 },
+    { text: 'Sustainability', style: 'italic', opacity: 0.5 },
+    { text: 'Human-First Design', style: 'italic', opacity: 0.45 },
+    { text: 'Circular Economy', style: 'italic', opacity: 0.4 },
+    { text: 'De-Centralization', style: 'italic', opacity: 0.35 },
+    { text: 'Eco-Systems', style: 'italic', opacity: 0.25 },
+    { text: 'Quality of Life', style: 'italic', opacity: 0.25 },
+    { text: 'Waste Management', style: 'italic', opacity: 0.2 },
+    { text: 'System Integration', style: 'italic', opacity: 0.2 },
+    { text: 'Urban Resilience', style: 'italic', opacity: 0.15 },
+    { text: 'Emergency Response', style: 'italic', opacity: 0.15 },
+    { text: 'Standards & Codes', style: 'italic', opacity: 0.1 },
+];
 
 export default function Hero() {
     const containerRef = useRef<HTMLDivElement>(null);
-    const [isClient, setIsClient] = useState(false);
+    const { scrollYProgress } = useScroll({ target: containerRef, offset: ['start start', 'end start'] });
+    const fadeOut = useTransform(scrollYProgress, [0, 0.5], [1, 0]);
+    const scrollShift = useTransform(scrollYProgress, [0, 1], ['0%', '25%']);
 
-    // Mouse position for 3D effect
+    // Mouse parallax for background glows
     const mouseX = useMotionValue(0);
     const mouseY = useMotionValue(0);
 
-    const springConfig = { damping: 30, stiffness: 100 };
-    const rotateX = useSpring(useTransform(mouseY, [-0.5, 0.5], [5, -5]), springConfig);
-    const rotateY = useSpring(useTransform(mouseX, [-0.5, 0.5], [-5, 5]), springConfig);
-
-    // Scroll-based animations
-    const { scrollYProgress } = useScroll({
-        target: containerRef,
-        offset: ['start start', 'end start'],
-    });
-
-    const opacity = useTransform(scrollYProgress, [0, 0.5], [1, 0]);
-    const scale = useTransform(scrollYProgress, [0, 0.5], [1, 0.8]);
-    const y = useTransform(scrollYProgress, [0, 0.5], [0, 100]);
-
     useEffect(() => {
-        setIsClient(true);
-    }, []);
-
-    useEffect(() => {
-        if (!containerRef.current) return;
-
-        const handleMouseMove = (e: MouseEvent) => {
-            const rect = containerRef.current?.getBoundingClientRect();
-            if (rect) {
-                mouseX.set((e.clientX - rect.left) / rect.width - 0.5);
-                mouseY.set((e.clientY - rect.top) / rect.height - 0.5);
-            }
+        const onMove = (e: MouseEvent) => {
+            mouseX.set((e.clientX / window.innerWidth) - 0.5);
+            mouseY.set((e.clientY / window.innerHeight) - 0.5);
         };
-
-        window.addEventListener('mousemove', handleMouseMove);
-        return () => window.removeEventListener('mousemove', handleMouseMove);
+        window.addEventListener('mousemove', onMove);
+        return () => window.removeEventListener('mousemove', onMove);
     }, [mouseX, mouseY]);
 
-    // Split text into words
-    const words = HERO_TEXT.split(' ');
-
     return (
-        <section
-            ref={containerRef}
-            className="relative min-h-screen flex flex-col items-center justify-center overflow-hidden bg-void"
-        >
-            {/* Animated grid background */}
-            <div className="absolute inset-0 overflow-hidden">
+        <section ref={containerRef} className="relative min-h-screen bg-void overflow-hidden">
+            {/* ═══ AMBIENT GLOWS ═══ */}
+            <div className="absolute inset-0 pointer-events-none overflow-hidden">
                 <motion.div
-                    className="absolute inset-0"
+                    className="absolute top-[-10%] left-[25%] w-[900px] h-[900px] rounded-full blur-[180px]"
                     style={{
-                        backgroundImage: `
-              linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
-              linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px)
-            `,
-                        backgroundSize: '60px 60px',
+                        background: 'radial-gradient(circle, rgba(236,149,78,0.14) 0%, rgba(44,93,169,0.05) 50%, transparent 70%)',
+                        x: useTransform(mouseX, [-0.5, 0.5], [-50, 50]),
+                        y: useTransform(mouseY, [-0.5, 0.5], [-50, 50]),
                     }}
-                    animate={{
-                        backgroundPosition: ['0px 0px', '60px 60px'],
+                />
+                <motion.div
+                    className="absolute top-[10%] right-[0%] w-[600px] h-[700px] rounded-full blur-[140px]"
+                    style={{
+                        background: 'radial-gradient(circle, rgba(44,93,169,0.1) 0%, transparent 70%)',
+                        x: useTransform(mouseX, [-0.5, 0.5], [30, -30]),
                     }}
-                    transition={{
-                        duration: 20,
-                        repeat: Infinity,
-                        ease: 'linear',
-                    }}
+                />
+                <div
+                    className="absolute bottom-[0%] left-[35%] w-[500px] h-[500px] rounded-full blur-[120px]"
+                    style={{ background: 'radial-gradient(circle, rgba(141,104,170,0.06) 0%, transparent 70%)' }}
                 />
             </div>
 
-            {/* Gradient orbs */}
-            <div className="absolute inset-0 overflow-hidden pointer-events-none">
-                <motion.div
-                    className="absolute top-1/4 left-1/4 w-[600px] h-[600px] rounded-full blur-[120px] opacity-20"
-                    style={{
-                        background: 'radial-gradient(circle, #2C5DA9 0%, transparent 70%)',
-                    }}
-                    animate={{
-                        x: [0, 100, 0],
-                        y: [0, -50, 0],
-                    }}
-                    transition={{
-                        duration: 15,
-                        repeat: Infinity,
-                        ease: 'easeInOut',
-                    }}
-                />
-                <motion.div
-                    className="absolute bottom-1/4 right-1/4 w-[500px] h-[500px] rounded-full blur-[100px] opacity-15"
-                    style={{
-                        background: 'radial-gradient(circle, #8D68AA 0%, transparent 70%)',
-                    }}
-                    animate={{
-                        x: [0, -80, 0],
-                        y: [0, 60, 0],
-                    }}
-                    transition={{
-                        duration: 12,
-                        repeat: Infinity,
-                        ease: 'easeInOut',
-                    }}
-                />
-            </div>
+            {/* ═══ MAIN LAYOUT ═══ */}
+            <motion.div className="relative z-10 min-h-screen flex flex-col md:flex-row" style={{ opacity: fadeOut }}>
 
-            {/* Main content with parallax */}
-            <motion.div
-                className="relative z-10 px-6 md:px-12 lg:px-24 text-center"
-                style={{ opacity, scale, y }}
-            >
-                {/* 3D Text container */}
-                <motion.div
-                    style={{
-                        rotateX,
-                        rotateY,
-                        transformStyle: 'preserve-3d',
-                        perspective: 1000,
-                    }}
-                >
-                    {/* Subtitle */}
-                    <motion.p
-                        className="font-body text-sm md:text-base tracking-[0.5em] text-stark/40 uppercase mb-6 md:mb-8"
-                        initial={{ opacity: 0, y: 30 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 1, delay: 0.5 }}
+                {/* ─── LEFT: The Keyword Wall ─── */}
+                <div className="relative w-full md:w-[58%] min-h-[55vh] md:min-h-screen overflow-hidden">
+
+                    {/* 3D Perspective Container — tilts the whole wall in 3D space */}
+                    <div
+                        className="absolute inset-0 [mask-image:linear-gradient(to_bottom,transparent_2%,black_12%,black_88%,transparent_98%)]"
+                        style={{
+                            perspective: '800px',
+                            perspectiveOrigin: '30% 50%',
+                        }}
                     >
-                        Greenberg Engineering
-                    </motion.p>
+                        {/* The scrolling column — rotated slightly in 3D for depth curve */}
+                        <motion.div
+                            className="flex flex-col items-start pl-4 md:pl-8 lg:pl-12"
+                            style={{
+                                transformStyle: 'preserve-3d',
+                                rotateY: 12,
+                                transformOrigin: 'left center',
+                            }}
+                            animate={{ y: ['0%', '-50%'] }}
+                            transition={{ duration: 55, repeat: Infinity, ease: 'linear' }}
+                        >
+                            {/* Render the wall twice for seamless loop */}
+                            {[...WALL_ITEMS, ...WALL_ITEMS].map((item, i) => (
+                                <div
+                                    key={i}
+                                    className="leading-[1.15] tracking-tight whitespace-nowrap select-none py-[0.15em] font-heading font-medium text-[1.6rem] sm:text-3xl md:text-4xl lg:text-[2.8rem] text-stark italic"
+                                    style={{
+                                        opacity: item.opacity,
+                                        paddingLeft: `${(i % 5) * 0.5}rem`,
+                                    }}
+                                >
+                                    {item.text}
+                                </div>
+                            ))}
+                        </motion.div>
+                    </div>
 
-                    {/* Main headline */}
-                    <h1 className="font-heading font-bold text-5xl sm:text-6xl md:text-8xl lg:text-9xl xl:text-[10rem] text-stark leading-[0.85] tracking-tighter">
-                        {words.map((word, wordIndex) => (
-                            <span key={wordIndex} className="inline-block mr-[0.15em]">
-                                {word.split('').map((char, charIndex) => {
-                                    const i = wordIndex * 10 + charIndex;
-                                    return (
-                                        <motion.span
-                                            key={charIndex}
-                                            className="inline-block"
-                                            initial={{ y: 150, opacity: 0, rotateX: -90 }}
-                                            animate={{ y: 0, opacity: 1, rotateX: 0 }}
-                                            transition={{
-                                                duration: 1,
-                                                delay: 0.8 + i * 0.04,
-                                                ease: [0.25, 0.46, 0.45, 0.94],
-                                            }}
-                                        >
-                                            {char}
-                                        </motion.span>
-                                    );
-                                })}
-                            </span>
-                        ))}
-                    </h1>
+                    {/* ─── Sticky GREENBERG ENGINEERING overlay ─── */}
+                    <div className="absolute inset-0 flex items-center justify-start pointer-events-none z-10">
+                        {/* Vignette glow behind the text for contrast */}
+                        <div
+                            className="absolute left-0 top-1/2 -translate-y-1/2 w-full h-[180px] md:h-[220px]"
+                            style={{
+                                background: 'radial-gradient(ellipse 100% 100% at 30% 50%, rgba(10,5,15,0.85) 0%, rgba(10,5,15,0.5) 40%, transparent 70%)',
+                            }}
+                        />
+                        <motion.div
+                            className="relative pl-4 md:pl-8 lg:pl-12"
+                            initial={{ opacity: 0, x: -30 }}
+                            animate={{ opacity: 1, x: 0 }}
+                            transition={{ duration: 1, delay: 0.4, ease: 'easeOut' }}
+                        >
+                            <h1 className="font-heading font-bold text-[2rem] sm:text-4xl md:text-5xl lg:text-[4rem] text-stark leading-[1.15] tracking-tight whitespace-nowrap select-none">
+                                GREENBERG ENGINEERING
+                            </h1>
+                        </motion.div>
+                    </div>
+                </div>
 
-                    {/* "WITH US" with outline style */}
-                    <motion.div
-                        className="mt-4 md:mt-8"
-                        initial={{ opacity: 0, y: 50 }}
+                {/* ─── RIGHT: Identity + CTAs ─── */}
+                <motion.div
+                    className="w-full md:w-[42%] flex flex-col justify-center px-6 md:px-12 lg:px-16 py-12 md:py-0"
+                    initial={{ opacity: 0, x: 40 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ duration: 0.9, delay: 0.6 }}
+                    style={{ y: scrollShift }}
+                >
+                    {/* GE Monogram */}
+                    <motion.div className="mb-10" initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.8 }}>
+                        <div className="font-heading font-bold text-5xl md:text-6xl text-stark tracking-tighter mb-3">GE</div>
+                        <div className="flex gap-1.5">
+                            {[
+                                { c: '#2C5DA9', l: 'Infrastructure' },
+                                { c: '#33644A', l: 'ESG' },
+                                { c: '#8D68AA', l: 'Systems' },
+                                { c: '#EC954E', l: 'Skills' },
+                                { c: '#D40114', l: 'Safety' },
+                            ].map((d, i) => (
+                                <motion.div
+                                    key={i}
+                                    className="w-2.5 h-2.5 rounded-full"
+                                    style={{ backgroundColor: d.c }}
+                                    initial={{ scale: 0 }}
+                                    animate={{ scale: 1 }}
+                                    transition={{ delay: 1 + i * 0.08 }}
+                                    title={d.l}
+                                />
+                            ))}
+                        </div>
+                    </motion.div>
+
+                    {/* Tagline */}
+                    <motion.h2
+                        className="font-heading font-bold text-3xl sm:text-4xl md:text-5xl text-stark leading-[1.1] mb-2"
+                        initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 1, delay: 1.8 }}
+                        transition={{ delay: 1, duration: 0.8 }}
+                    >
+                        CREATE THE<br />FUTURE<span className="text-[#EC954E]">.</span>
+                    </motion.h2>
+                    <motion.div
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ delay: 1.2, duration: 0.8 }}
+                        className="mb-8"
                     >
                         <span
-                            className="font-heading font-bold text-4xl sm:text-5xl md:text-7xl lg:text-8xl tracking-tight"
-                            style={{
-                                WebkitTextStroke: '2px rgba(255,255,255,0.5)',
-                                WebkitTextFillColor: 'transparent',
-                            }}
+                            className="font-heading font-bold text-3xl sm:text-4xl md:text-5xl tracking-tight"
+                            style={{ WebkitTextStroke: '1.5px rgba(255,255,255,0.3)', WebkitTextFillColor: 'transparent' }}
                         >
                             WITH US
                         </span>
                     </motion.div>
-                </motion.div>
 
-                {/* Subtext */}
-                <motion.p
-                    className="mt-8 md:mt-12 text-base md:text-xl lg:text-2xl text-stark/50 font-body max-w-2xl mx-auto leading-relaxed"
-                    initial={{ opacity: 0, y: 30 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 1, delay: 2.2 }}
-                >
-                    Engineering solutions that defy gravity. Five pillars of excellence
-                    transforming industries across the globe.
-                </motion.p>
+                    {/* Description */}
+                    <motion.p
+                        className="font-body text-base md:text-lg text-stark/45 mb-10 max-w-sm leading-relaxed"
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ delay: 1.4, duration: 0.8 }}
+                    >
+                        Engineering solutions that defy gravity. Five pillars of excellence transforming industries across the globe.
+                    </motion.p>
 
-                {/* CTA Buttons */}
-                <motion.div
-                    className="mt-12 md:mt-16 flex flex-col sm:flex-row gap-4 justify-center items-center"
-                    initial={{ opacity: 0, y: 30 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 1, delay: 2.5 }}
-                >
-                    <MagneticButton
-                        href="#sectors"
-                        className="px-8 py-4 border-2 border-stark font-heading text-sm uppercase tracking-widest"
+                    {/* CTAs */}
+                    <motion.div
+                        className="flex flex-col sm:flex-row gap-4"
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ delay: 1.6, duration: 0.8 }}
                     >
-                        Explore Sectors
-                    </MagneticButton>
-                    <MagneticButton
-                        href="#contact"
-                        className="px-8 py-4 border-2 border-stark/30 font-heading text-sm uppercase tracking-widest"
-                    >
-                        Start a Project
-                    </MagneticButton>
+                        <MagneticButton
+                            href="#sectors"
+                            className="px-8 py-4 bg-stark text-void font-heading text-xs uppercase tracking-[0.15em] hover:bg-white/90 transition-colors"
+                        >
+                            Explore Sectors
+                        </MagneticButton>
+                        <MagneticButton
+                            href="#contact"
+                            className="px-8 py-4 border border-white/20 text-stark font-heading text-xs uppercase tracking-[0.15em] hover:bg-white/5 transition-colors flex items-center justify-center gap-2"
+                        >
+                            Start a Project <ArrowRight size={14} />
+                        </MagneticButton>
+                    </motion.div>
                 </motion.div>
             </motion.div>
 
-            {/* Scroll indicator */}
+            {/* ═══ SCROLL INDICATOR ═══ */}
             <motion.div
-                className="absolute bottom-12 left-1/2 -translate-x-1/2 flex flex-col items-center gap-4"
+                className="absolute bottom-6 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 z-20"
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
-                transition={{ delay: 3, duration: 1 }}
+                transition={{ delay: 2.5, duration: 1 }}
             >
-                <motion.span
-                    className="font-body text-xs tracking-[0.3em] text-stark/30 uppercase"
-                    animate={{ opacity: [0.3, 0.6, 0.3] }}
-                    transition={{ duration: 2, repeat: Infinity }}
-                >
-                    Scroll to explore
-                </motion.span>
-                <motion.div
-                    animate={{ y: [0, 10, 0] }}
-                    transition={{ duration: 1.5, repeat: Infinity, ease: 'easeInOut' }}
-                >
-                    <ArrowDown className="w-5 h-5 text-stark/30" />
+                <span className="font-mono text-[10px] uppercase tracking-[0.25em] text-stark/25">Scroll to Explore</span>
+                <motion.div animate={{ y: [0, 6, 0] }} transition={{ repeat: Infinity, duration: 2, ease: 'easeInOut' }}>
+                    <ArrowDown size={14} className="text-stark/25" />
                 </motion.div>
             </motion.div>
-
-            {/* Corner decorations */}
-            <div className="absolute top-0 left-0 w-32 h-32 border-l-2 border-t-2 border-white/5 m-8" />
-            <div className="absolute top-0 right-0 w-32 h-32 border-r-2 border-t-2 border-white/5 m-8" />
-            <div className="absolute bottom-0 left-0 w-32 h-32 border-l-2 border-b-2 border-white/5 m-8" />
-            <div className="absolute bottom-0 right-0 w-32 h-32 border-r-2 border-b-2 border-white/5 m-8" />
         </section>
     );
 }

@@ -236,13 +236,16 @@ function MagneticInput({ label, name, type, placeholder, value, mouseX, mouseY }
 }
 
 function ConstellationField({ mouseX, mouseY }: { mouseX: any, mouseY: any }) {
-    // Generate static stars
-    const stars = Array.from({ length: 40 }).map((_, i) => ({
-        x: Math.random() * 100,
-        y: Math.random() * 100,
-        size: Math.random() * 2 + 1,
-        delay: Math.random() * 5
-    }));
+    const [stars, setStars] = useState<any[]>([]);
+
+    useEffect(() => {
+        setStars(Array.from({ length: 40 }).map((_, i) => ({
+            x: Math.random() * 100,
+            y: Math.random() * 100,
+            size: Math.random() * 2 + 1,
+            delay: Math.random() * 5
+        })));
+    }, []);
 
     return (
         <div className="absolute inset-0 pointer-events-none">

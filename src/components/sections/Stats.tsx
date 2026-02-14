@@ -11,7 +11,7 @@ const stats = [
         suffix: '+',
         label: 'Years of Excellence',
         description: 'Pioneering engineering solutions',
-        gradient: SECTOR_GRADIENTS.infra,
+        gradient: SECTOR_GRADIENTS.infrastructure,
     },
     {
         value: 500,

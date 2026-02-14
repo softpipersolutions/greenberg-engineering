@@ -1,7 +1,7 @@
 'use client';
 
 import { motion, useScroll, useTransform } from 'framer-motion';
-import { useRef } from 'react';
+import { useRef, useState, useEffect } from 'react';
 import { ArrowRight, Brain } from 'lucide-react';
 import MagneticButton from '@/components/ui/MagneticButton';
 import Link from 'next/link';
@@ -81,6 +81,18 @@ export default function InfraQPreview() {
 }
 
 function GridAnimation() {
+    const [nodes, setNodes] = useState<any[]>([]);
+
+    useEffect(() => {
+        setNodes([...Array(10)].map((_, i) => ({
+            id: i,
+            cx: `${Math.random() * 100}%`,
+            cy: `${Math.random() * 100}%`,
+            duration: 2 + Math.random() * 3,
+            delay: Math.random() * 2,
+        })));
+    }, []);
+
     return (
         <div className="absolute inset-0 overflow-hidden opacity-30">
             <svg className="w-full h-full" width="100%" height="100%">
@@ -92,11 +104,11 @@ function GridAnimation() {
                 <rect width="100%" height="100%" fill="url(#grid-pattern)" />
 
                 {/* Random glowing nodes on the grid */}
-                {[...Array(10)].map((_, i) => (
+                {nodes.map((node) => (
                     <motion.circle
-                        key={i}
-                        cx={`${Math.random() * 100}%`}
-                        cy={`${Math.random() * 100}%`}
+                        key={node.id}
+                        cx={node.cx}
+                        cy={node.cy}
                         r="2"
                         fill="#8D68AA"
                         animate={{
@@ -104,9 +116,9 @@ function GridAnimation() {
                             r: [2, 4, 2],
                         }}
                         transition={{
-                            duration: 2 + Math.random() * 3,
+                            duration: node.duration,
                             repeat: Infinity,
-                            delay: Math.random() * 2,
+                            delay: node.delay,
                         }}
                     />
                 ))}
