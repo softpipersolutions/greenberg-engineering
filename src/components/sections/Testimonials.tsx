@@ -44,7 +44,7 @@ const testimonials = [
 
 export default function Testimonials() {
     return (
-        <section className="relative py-24 md:py-40 bg-void overflow-hidden">
+        <section id="testimonials" className="relative py-24 md:py-40 bg-void overflow-hidden">
             {/* Background gradient */}
             <div
                 className="absolute inset-0 pointer-events-none opacity-20"

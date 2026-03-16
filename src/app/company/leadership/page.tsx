@@ -1,6 +1,5 @@
 'use client';
 
-import { motion } from 'framer-motion';
 import Footer from '@/components/sections/Footer';
 import TeamGrid from '@/components/sections/about/TeamGrid';
 import ParallaxHero from '@/components/ui/ParallaxHero';

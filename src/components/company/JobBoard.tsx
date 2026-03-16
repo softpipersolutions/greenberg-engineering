@@ -1,9 +1,8 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { MapPin, Clock, ArrowUpRight, Briefcase } from 'lucide-react';
+import { MapPin, Clock, ArrowUpRight } from 'lucide-react';
 import Link from 'next/link';
-import { useState } from 'react';
 
 const jobs = [
     {
@@ -41,7 +40,6 @@ const jobs = [
 ];
 
 export default function JobBoard() {
-    const [hoveredJob, setHoveredJob] = useState<number | null>(null);
 
     return (
         <div className="grid gap-4">
@@ -50,8 +48,6 @@ export default function JobBoard() {
                     key={job.id}
                     href={`mailto:careers@greenberg.engineering?subject=Application for ${job.title}`}
                     className="group relative block"
-                    onMouseEnter={() => setHoveredJob(job.id)}
-                    onMouseLeave={() => setHoveredJob(null)}
                 >
                     <motion.div
                         initial={{ opacity: 0, y: 20 }}

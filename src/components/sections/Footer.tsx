@@ -2,6 +2,8 @@
 
 import { motion } from 'framer-motion';
 import { ArrowUp, Github, Linkedin, Twitter, Instagram } from 'lucide-react';
+import Link from 'next/link';
+import Image from 'next/image';
 
 const footerLinks = {
     Sectors: [
@@ -46,13 +48,20 @@ export default function Footer() {
                     <div className="grid md:grid-cols-2 lg:grid-cols-5 gap-12 lg:gap-8">
                         {/* Brand column */}
                         <div className="lg:col-span-2">
-                            <motion.a
-                                href="/"
-                                className="inline-block font-heading text-3xl font-bold text-stark tracking-tight mb-6"
-                                whileHover={{ scale: 1.02 }}
-                            >
-                                GREENBERG
-                            </motion.a>
+                            <Link href="/">
+                                <motion.div
+                                    className="mb-6 inline-block"
+                                    whileHover={{ scale: 1.05 }}
+                                >
+                                    <Image
+                                        src="/logo.svg"
+                                        alt="Greenberg Engineering Logo"
+                                        width={350}
+                                        height={88}
+                                        className="h-16 md:h-20 lg:h-24 w-auto object-contain drop-shadow-[0_0_15px_rgba(255,255,255,0.1)]"
+                                    />
+                                </motion.div>
+                            </Link>
                             <p className="font-body text-stark/50 max-w-sm mb-8 leading-relaxed">
                                 Engineering excellence since 1999. Five pillars of innovation
                                 transforming industries across the globe.
@@ -64,6 +73,8 @@ export default function Footer() {
                                     <motion.a
                                         key={social.label}
                                         href={social.href}
+                                        target="_blank"
+                                        rel="noopener noreferrer"
                                         className="w-10 h-10 flex items-center justify-center border border-white/10 text-stark/50 hover:text-stark hover:border-white/30 transition-colors"
                                         whileHover={{ scale: 1.1, y: -2 }}
                                         whileTap={{ scale: 0.95 }}
@@ -90,13 +101,14 @@ export default function Footer() {
                                             viewport={{ once: true, margin: '0px 0px -150px 0px' }}
                                             transition={{ delay: columnIndex * 0.1 + linkIndex * 0.05 }}
                                         >
-                                            <motion.a
-                                                href={link.href}
-                                                className="font-body text-sm text-stark/50 hover:text-stark transition-colors inline-block"
-                                                whileHover={{ x: 3 }}
-                                            >
-                                                {link.label}
-                                            </motion.a>
+                                            <Link href={link.href}>
+                                                <motion.span
+                                                    className="font-body text-sm text-stark/50 hover:text-stark transition-colors inline-block"
+                                                    whileHover={{ x: 3 }}
+                                                >
+                                                    {link.label}
+                                                </motion.span>
+                                            </Link>
                                         </motion.li>
                                     ))}
                                 </ul>
@@ -140,18 +152,21 @@ export default function Footer() {
             <div className="px-6 md:px-12 lg:px-24 py-8 border-t border-white/5">
                 <div className="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-4">
                     <p className="font-body text-xs text-stark/30">
-                        © {currentYear} Greenberg Engineering. All rights reserved.
+                        © {currentYear} GREENBERG ENGINEERING PRIVATE LIMITED. All rights reserved.
+                        <span className="block mt-1 text-[10px] text-stark/20">
+                            Registered Office: 5/178, Vikas Nagar Thana Road, Lucknow, UP 226022 | GSTIN: 09AAMCG0423A1Z3
+                        </span>
                     </p>
                     <div className="flex gap-6">
-                        <a href="/legal/privacy" className="font-body text-xs text-stark/30 hover:text-stark/60 transition-colors">
+                        <Link href="/legal/privacy" className="font-body text-xs text-stark/30 hover:text-stark/60 transition-colors">
                             Privacy Policy
-                        </a>
-                        <a href="/legal/terms" className="font-body text-xs text-stark/30 hover:text-stark/60 transition-colors">
+                        </Link>
+                        <Link href="/legal/terms" className="font-body text-xs text-stark/30 hover:text-stark/60 transition-colors">
                             Terms of Service
-                        </a>
-                        <a href="/legal/impressum" className="font-body text-xs text-stark/30 hover:text-stark/60 transition-colors">
+                        </Link>
+                        <Link href="/legal/impressum" className="font-body text-xs text-stark/30 hover:text-stark/60 transition-colors">
                             Impressum
-                        </a>
+                        </Link>
                     </div>
                 </div>
             </div>
@@ -168,7 +183,7 @@ export default function Footer() {
                             key={i}
                             className="font-heading text-[8vw] md:text-[6vw] font-bold text-white/[0.02] mx-4"
                         >
-                            GREENBERG ENGINEERING • CREATE THE FUTURE • ANTIGRAVITY • EXCELLENCE IN MOTION •
+                            GREENBERG ENGINEERING • CREATE THE FUTURE • ENGINEERING EXCELLENCE • BUILD WITH US •
                         </span>
                     ))}
                 </motion.div>

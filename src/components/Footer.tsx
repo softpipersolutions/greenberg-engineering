@@ -68,7 +68,10 @@ export default function Footer() {
                 {/* Copyright */}
                 <div className="mt-12 pt-8 border-t border-white/5 flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
                     <p className="font-body text-xs text-stark/30">
-                        © {currentYear} Greenberg Engineering. All rights reserved.
+                        © {currentYear} GREENBERG ENGINEERING PRIVATE LIMITED. All rights reserved.
+                        <span className="block mt-1 text-[10px] text-stark/20">
+                            Registered Office: 5/178, Vikas Nagar Thana Road, Lucknow, UP 226022 | GSTIN: 09AAMCG0423A1Z3
+                        </span>
                     </p>
                     <div className="flex gap-6">
                         <a href="#" className="font-body text-xs text-stark/30 hover:text-stark/60 transition-colors">

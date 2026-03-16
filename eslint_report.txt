@@ -1,0 +1,164 @@
+[0m[0m
+[0m[4m/Users/amitabh/Documents/greenberg website/greenberg-engineering/src/app/about/page.tsx[24m[0m
+[0m  [2m20:26[22m  [31merror[39m  `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`  [2mreact/no-unescaped-entities[22m[0m
+[0m[0m
+[0m[4m/Users/amitabh/Documents/greenberg website/greenberg-engineering/src/app/company/careers/page.tsx[24m[0m
+[0m   [2m3:10[22m  [33mwarning[39m  'motion' is defined but never used  [2m@typescript-eslint/no-unused-vars[22m[0m
+[0m  [2m43:41[22m  [33mwarning[39m  'index' is defined but never used   [2m@typescript-eslint/no-unused-vars[22m[0m
+[0m[0m
+[0m[4m/Users/amitabh/Documents/greenberg website/greenberg-engineering/src/app/company/leadership/page.tsx[24m[0m
+[0m  [2m3:10[22m  [33mwarning[39m  'motion' is defined but never used  [2m@typescript-eslint/no-unused-vars[22m[0m
+[0m[0m
+[0m[4m/Users/amitabh/Documents/greenberg website/greenberg-engineering/src/app/company/page.tsx[24m[0m
+[0m   [2m3:10[22m  [33mwarning[39m  'motion' is defined but never used            [2m@typescript-eslint/no-unused-vars[22m[0m
+[0m   [2m4:8[22m   [33mwarning[39m  'MagneticButton' is defined but never used    [2m@typescript-eslint/no-unused-vars[22m[0m
+[0m   [2m6:10[22m  [33mwarning[39m  'ArrowRight' is defined but never used        [2m@typescript-eslint/no-unused-vars[22m[0m
+[0m   [2m6:47[22m  [33mwarning[39m  'Users' is defined but never used             [2m@typescript-eslint/no-unused-vars[22m[0m
+[0m   [2m6:54[22m  [33mwarning[39m  'Target' is defined but never used            [2m@typescript-eslint/no-unused-vars[22m[0m
+[0m  [2m12:10[22m  [33mwarning[39m  'SECTOR_GRADIENTS' is defined but never used  [2m@typescript-eslint/no-unused-vars[22m[0m
+[0m  [2m72:41[22m  [33mwarning[39m  'index' is defined but never used             [2m@typescript-eslint/no-unused-vars[22m[0m
+[0m[0m
+[0m[4m/Users/amitabh/Documents/greenberg website/greenberg-engineering/src/app/resources/downloads/page.tsx[24m[0m
+[0m   [2m6:10[22m  [33mwarning[39m  'FileText' is defined but never used      [2m@typescript-eslint/no-unused-vars[22m[0m
+[0m   [2m6:20[22m  [33mwarning[39m  'Download' is defined but never used      [2m@typescript-eslint/no-unused-vars[22m[0m
+[0m  [2m76:43[22m  [31merror[39m    Unexpected any. Specify a different type  [2m@typescript-eslint/no-explicit-any[22m[0m
+[0m[0m
+[0m[4m/Users/amitabh/Documents/greenberg website/greenberg-engineering/src/app/sectors/esg/page.tsx[24m[0m
+[0m   [2m4:8[22m   [33mwarning[39m  'MagneticButton' is defined but never used  [2m@typescript-eslint/no-unused-vars[22m[0m
+[0m   [2m8:39[22m  [33mwarning[39m  'ArrowRight' is defined but never used      [2m@typescript-eslint/no-unused-vars[22m[0m
+[0m  [2m10:8[22m   [33mwarning[39m  'Link' is defined but never used            [2m@typescript-eslint/no-unused-vars[22m[0m
+[0m[0m
+[0m[4m/Users/amitabh/Documents/greenberg website/greenberg-engineering/src/app/sectors/infrastructure/page.tsx[24m[0m
+[0m   [2m3:10[22m  [33mwarning[39m  'motion' is defined but never used          [2m@typescript-eslint/no-unused-vars[22m[0m
+[0m   [2m5:8[22m   [33mwarning[39m  'MagneticButton' is defined but never used  [2m@typescript-eslint/no-unused-vars[22m[0m
+[0m  [2m11:8[22m   [33mwarning[39m  'Link' is defined but never used            [2m@typescript-eslint/no-unused-vars[22m[0m
+[0m[0m
+[0m[4m/Users/amitabh/Documents/greenberg website/greenberg-engineering/src/app/sectors/safety/page.tsx[24m[0m
+[0m   [2m4:8[22m   [33mwarning[39m  'MagneticButton' is defined but never used  [2m@typescript-eslint/no-unused-vars[22m[0m
+[0m   [2m8:48[22m  [33mwarning[39m  'ArrowRight' is defined but never used      [2m@typescript-eslint/no-unused-vars[22m[0m
+[0m  [2m10:8[22m   [33mwarning[39m  'Link' is defined but never used            [2m@typescript-eslint/no-unused-vars[22m[0m
+[0m[0m
+[0m[4m/Users/amitabh/Documents/greenberg website/greenberg-engineering/src/app/sectors/skills/page.tsx[24m[0m
+[0m   [2m4:8[22m   [33mwarning[39m  'MagneticButton' is defined but never used  [2m@typescript-eslint/no-unused-vars[22m[0m
+[0m   [2m8:49[22m  [33mwarning[39m  'ArrowRight' is defined but never used      [2m@typescript-eslint/no-unused-vars[22m[0m
+[0m  [2m10:8[22m   [33mwarning[39m  'Link' is defined but never used            [2m@typescript-eslint/no-unused-vars[22m[0m
+[0m[0m
+[0m[4m/Users/amitabh/Documents/greenberg website/greenberg-engineering/src/app/sectors/systems/page.tsx[24m[0m
+[0m   [2m4:8[22m   [33mwarning[39m  'MagneticButton' is defined but never used  [2m@typescript-eslint/no-unused-vars[22m[0m
+[0m   [2m8:40[22m  [33mwarning[39m  'ArrowRight' is defined but never used      [2m@typescript-eslint/no-unused-vars[22m[0m
+[0m  [2m10:8[22m   [33mwarning[39m  'Link' is defined but never used            [2m@typescript-eslint/no-unused-vars[22m[0m
+[0m[0m
+[0m[4m/Users/amitabh/Documents/greenberg website/greenberg-engineering/src/components/AnimatedButton.tsx[24m[0m
+[0m  [2m15:5[22m  [33mwarning[39m  'variant' is assigned a value but never used  [2m@typescript-eslint/no-unused-vars[22m[0m
+[0m[0m
+[0m[4m/Users/amitabh/Documents/greenberg website/greenberg-engineering/src/components/company/JobBoard.tsx[24m[0m
+[0m   [2m4:39[22m  [33mwarning[39m  'Briefcase' is defined but never used            [2m@typescript-eslint/no-unused-vars[22m[0m
+[0m  [2m44:12[22m  [33mwarning[39m  'hoveredJob' is assigned a value but never used  [2m@typescript-eslint/no-unused-vars[22m[0m
+[0m[0m
+[0m[4m/Users/amitabh/Documents/greenberg website/greenberg-engineering/src/components/company/Timeline.tsx[24m[0m
+[0m   [2m3:18[22m  [33mwarning[39m  'useScroll' is defined but never used     [2m@typescript-eslint/no-unused-vars[22m[0m
+[0m   [2m3:29[22m  [33mwarning[39m  'useTransform' is defined but never used  [2m@typescript-eslint/no-unused-vars[22m[0m
+[0m  [2m29:50[22m  [31merror[39m    Unexpected any. Specify a different type  [2m@typescript-eslint/no-explicit-any[22m[0m
+[0m[0m
+[0m[4m/Users/amitabh/Documents/greenberg website/greenberg-engineering/src/components/global/Navigation.tsx[24m[0m
+[0m  [2m36:12[22m  [33mwarning[39m  'isScrolled' is assigned a value but never used  [2m@typescript-eslint/no-unused-vars[22m[0m
+[0m[0m
+[0m[4m/Users/amitabh/Documents/greenberg website/greenberg-engineering/src/components/sections/Contact.tsx[24m[0m
+[0m   [2m85:36[22m   [31merror[39m    `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     [2mreact/no-unescaped-entities[22m[0m
+[0m   [2m99:70[22m   [31merror[39m    `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     [2mreact/no-unescaped-entities[22m[0m
+[0m   [2m99:116[22m  [31merror[39m    `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     [2mreact/no-unescaped-entities[22m[0m
+[0m  [2m301:50[22m   [33mwarning[39m  '_' is defined but never used                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       [2m@typescript-eslint/no-unused-vars[22m[0m
+[0m  [2m301:53[22m   [33mwarning[39m  'i' is defined but never used                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       [2m@typescript-eslint/no-unused-vars[22m[0m
+[0m  [2m338:39[22m   [31merror[39m    Error: Cannot call impure function during render[0m
+[0m[0m
+[0m`Math.random` is an impure function. Calling an impure function can produce unstable results that update unpredictably when the component happens to re-render. (https://react.dev/reference/rules/components-and-hooks-must-be-pure#components-and-hooks-must-be-idempotent).[0m
+[0m[0m
+[0m/Users/amitabh/Documents/greenberg website/greenberg-engineering/src/components/sections/Contact.tsx:338:39[0m
+[0m  336 |                     }}[0m
+[0m  337 |                     transition={{[0m
+[0m> 338 |                         duration: 3 + Math.random() * 2,[0m
+[0m      |                                       ^^^^^^^^^^^^^ Cannot call impure function[0m
+[0m  339 |                         repeat: Infinity,[0m
+[0m  340 |                         delay: star.delay[0m
+[0m  341 |                     }}  [2mreact-hooks/purity[22m[0m
+[0m  [2m381:54[22m   [31merror[39m    `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     [2mreact/no-unescaped-entities[22m[0m
+[0m[0m
+[0m[4m/Users/amitabh/Documents/greenberg website/greenberg-engineering/src/components/sections/InfraQPreview.tsx[24m[0m
+[0m  [2m52:34[22m  [31merror[39m  `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          [2mreact/no-unescaped-entities[22m[0m
+[0m  [2m84:40[22m  [31merror[39m  Unexpected any. Specify a different type                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 [2m@typescript-eslint/no-explicit-any[22m[0m
+[0m  [2m87:9[22m   [31merror[39m  Error: Calling setState synchronously within an effect can trigger cascading renders[0m
+[0m[0m
+[0mEffects are intended to synchronize state between React and external systems such as manually updating the DOM, state management libraries, or other platform APIs. In general, the body of an effect should do one or both of the following:[0m
+[0m* Update external systems with the latest state from React.[0m
+[0m* Subscribe for updates from some external system, calling setState in a callback function when external state changes.[0m
+[0m[0m
+[0mCalling setState synchronously within an effect body causes cascading renders that can hurt performance, and is not recommended. (https://react.dev/learn/you-might-not-need-an-effect).[0m
+[0m[0m
+[0m/Users/amitabh/Documents/greenberg website/greenberg-engineering/src/components/sections/InfraQPreview.tsx:87:9[0m
+[0m  85 |[0m
+[0m  86 |     useEffect(() => {[0m
+[0m> 87 |         setNodes([...Array(10)].map((_, i) => ({[0m
+[0m     |         ^^^^^^^^ Avoid calling setState() directly within an effect[0m
+[0m  88 |             id: i,[0m
+[0m  89 |             cx: `${Math.random() * 100}%`,[0m
+[0m  90 |             cy: `${Math.random() * 100}%`,  [2mreact-hooks/set-state-in-effect[22m[0m
+[0m[0m
+[0m[4m/Users/amitabh/Documents/greenberg website/greenberg-engineering/src/components/sections/Manifesto.tsx[24m[0m
+[0m  [2m115:15[22m  [31merror[39m  Unexpected any. Specify a different type                                                                                                                                                        [2m@typescript-eslint/no-explicit-any[22m[0m
+[0m  [2m172:29[22m  [31merror[39m  React Hook "useTransform" is called conditionally. React Hooks must be called in the exact same order in every component render. Did you accidentally call a React Hook after an early return?  [2mreact-hooks/rules-of-hooks[22m[0m
+[0m  [2m187:25[22m  [31merror[39m  React Hook "useTransform" is called conditionally. React Hooks must be called in the exact same order in every component render                                                                 [2mreact-hooks/rules-of-hooks[22m[0m
+[0m  [2m348:55[22m  [31merror[39m  Unexpected any. Specify a different type                                                                                                                                                        [2m@typescript-eslint/no-explicit-any[22m[0m
+[0m  [2m370:17[22m  [31merror[39m  `"` can be escaped with `&quot;`, `&ldquo;`, `&#34;`, `&rdquo;`                                                                                                                                 [2mreact/no-unescaped-entities[22m[0m
+[0m  [2m425:53[22m  [31merror[39m  Unexpected any. Specify a different type                                                                                                                                                        [2m@typescript-eslint/no-explicit-any[22m[0m
+[0m  [2m442:37[22m  [31merror[39m  React Hook "useTransform" cannot be called inside a callback. React Hooks must be called in a React function component or a custom React Hook function                                          [2mreact-hooks/rules-of-hooks[22m[0m
+[0m  [2m443:38[22m  [31merror[39m  React Hook "useTransform" cannot be called inside a callback. React Hooks must be called in a React function component or a custom React Hook function                                          [2mreact-hooks/rules-of-hooks[22m[0m
+[0m  [2m459:36[22m  [31merror[39m  React Hook "useTransform" cannot be called inside a callback. React Hooks must be called in a React function component or a custom React Hook function                                          [2mreact-hooks/rules-of-hooks[22m[0m
+[0m  [2m460:38[22m  [31merror[39m  React Hook "useTransform" cannot be called inside a callback. React Hooks must be called in a React function component or a custom React Hook function                                          [2mreact-hooks/rules-of-hooks[22m[0m
+[0m[0m
+[0m[4m/Users/amitabh/Documents/greenberg website/greenberg-engineering/src/components/sections/Projects.tsx[24m[0m
+[0m  [2m6:28[22m  [33mwarning[39m  'SECTORS' is defined but never used  [2m@typescript-eslint/no-unused-vars[22m[0m
+[0m[0m
+[0m[4m/Users/amitabh/Documents/greenberg website/greenberg-engineering/src/components/sections/Stats.tsx[24m[0m
+[0m  [2m109:21[22m  [31merror[39m    Unexpected any. Specify a different type    [2m@typescript-eslint/no-explicit-any[22m[0m
+[0m  [2m112:34[22m  [33mwarning[39m  'scrollProgress' is defined but never used  [2m@typescript-eslint/no-unused-vars[22m[0m
+[0m[0m
+[0m[4m/Users/amitabh/Documents/greenberg website/greenberg-engineering/src/components/sections/Testimonials.tsx[24m[0m
+[0m  [2m113:17[22m  [31merror[39m  `"` can be escaped with `&quot;`, `&ldquo;`, `&#34;`, `&rdquo;`  [2mreact/no-unescaped-entities[22m[0m
+[0m  [2m156:17[22m  [31merror[39m  `"` can be escaped with `&quot;`, `&ldquo;`, `&#34;`, `&rdquo;`  [2mreact/no-unescaped-entities[22m[0m
+[0m  [2m156:37[22m  [31merror[39m  `"` can be escaped with `&quot;`, `&ldquo;`, `&#34;`, `&rdquo;`  [2mreact/no-unescaped-entities[22m[0m
+[0m[0m
+[0m[4m/Users/amitabh/Documents/greenberg website/greenberg-engineering/src/components/sections/about/TeamGrid.tsx[24m[0m
+[0m   [2m4:26[22m  [33mwarning[39m  'BadgeCheck' is defined but never used    [2m@typescript-eslint/no-unused-vars[22m[0m
+[0m  [2m86:29[22m  [33mwarning[39m  'index' is defined but never used         [2m@typescript-eslint/no-unused-vars[22m[0m
+[0m  [2m86:48[22m  [31merror[39m    Unexpected any. Specify a different type  [2m@typescript-eslint/no-explicit-any[22m[0m
+[0m[0m
+[0m[4m/Users/amitabh/Documents/greenberg website/greenberg-engineering/src/components/sections/infra-q/InfraQFeatures.tsx[24m[0m
+[0m   [2m5:10[22m  [33mwarning[39m  'GlitchText' is defined but never used    [2m@typescript-eslint/no-unused-vars[22m[0m
+[0m  [2m77:53[22m  [31merror[39m    Unexpected any. Specify a different type  [2m@typescript-eslint/no-explicit-any[22m[0m
+[0m[0m
+[0m[4m/Users/amitabh/Documents/greenberg website/greenberg-engineering/src/components/sections/infra-q/InfraQHero.tsx[24m[0m
+[0m   [2m5:17[22m  [33mwarning[39m  'Cpu' is defined but never used                                  [2m@typescript-eslint/no-unused-vars[22m[0m
+[0m   [2m5:22[22m  [33mwarning[39m  'Network' is defined but never used                              [2m@typescript-eslint/no-unused-vars[22m[0m
+[0m  [2m65:26[22m  [31merror[39m    `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`  [2mreact/no-unescaped-entities[22m[0m
+[0m[0m
+[0m[4m/Users/amitabh/Documents/greenberg website/greenberg-engineering/src/components/sections/infra-q/InfraQRoadmap.tsx[24m[0m
+[0m   [2m3:18[22m  [33mwarning[39m  'useScroll' is defined but never used     [2m@typescript-eslint/no-unused-vars[22m[0m
+[0m   [2m3:29[22m  [33mwarning[39m  'useTransform' is defined but never used  [2m@typescript-eslint/no-unused-vars[22m[0m
+[0m   [2m4:10[22m  [33mwarning[39m  'useRef' is defined but never used        [2m@typescript-eslint/no-unused-vars[22m[0m
+[0m  [2m61:48[22m  [31merror[39m    Unexpected any. Specify a different type  [2m@typescript-eslint/no-explicit-any[22m[0m
+[0m[0m
+[0m[4m/Users/amitabh/Documents/greenberg website/greenberg-engineering/src/components/sections/insights/InsightsList.tsx[24m[0m
+[0m  [2m91:66[22m  [31merror[39m  Unexpected any. Specify a different type  [2m@typescript-eslint/no-explicit-any[22m[0m
+[0m[0m
+[0m[4m/Users/amitabh/Documents/greenberg website/greenberg-engineering/src/components/sections/sectors/ESG.tsx[24m[0m
+[0m  [2m111:44[22m   [33mwarning[39m  'i' is defined but never used  [2m@typescript-eslint/no-unused-vars[22m[0m
+[0m  [2m132:119[22m  [33mwarning[39m  'i' is defined but never used  [2m@typescript-eslint/no-unused-vars[22m[0m
+[0m[0m
+[0m[4m/Users/amitabh/Documents/greenberg website/greenberg-engineering/src/components/sections/sectors/Safety.tsx[24m[0m
+[0m  [2m261:26[22m  [33mwarning[39m  'scrollProgress' is defined but never used  [2m@typescript-eslint/no-unused-vars[22m[0m
+[0m[0m
+[0m[4m/Users/amitabh/Documents/greenberg website/greenberg-engineering/src/components/ui/MagneticButton.tsx[24m[0m
+[0m  [2m51:35[22m  [31merror[39m  Unexpected any. Specify a different type  [2m@typescript-eslint/no-explicit-any[22m[0m
+[0m[0m
+[0m[31m[1m✖ 79 problems (31 errors, 48 warnings)[22m[39m[0m
+[0m[31m[1m[22m[39m[0m

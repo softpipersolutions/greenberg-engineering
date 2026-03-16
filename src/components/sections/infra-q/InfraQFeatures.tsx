@@ -2,7 +2,6 @@
 
 import { motion } from 'framer-motion';
 import { Bot, FileCheck, ShieldAlert, Zap, Layers, BarChart3 } from 'lucide-react';
-import { GlitchText } from '@/components/ui/AnimatedText';
 
 const features = [
     {
@@ -74,7 +73,7 @@ export default function InfraQFeatures() {
     );
 }
 
-function FeatureCard({ feature, index }: { feature: any, index: number }) {
+function FeatureCard({ feature, index }: { feature: { icon: any, title: string, desc: string }, index: number }) {
     return (
         <motion.div
             initial={{ opacity: 0, y: 20 }}

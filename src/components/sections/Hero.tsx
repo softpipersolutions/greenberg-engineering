@@ -1,6 +1,7 @@
 'use client';
 
 import { motion, useScroll, useTransform, useMotionValue } from 'framer-motion';
+import Image from 'next/image';
 import { useRef, useEffect } from 'react';
 import { ArrowDown, ArrowRight } from 'lucide-react';
 import MagneticButton from '@/components/ui/MagneticButton';
@@ -153,56 +154,106 @@ export default function Hero() {
                     transition={{ duration: 0.9, delay: 0.6 }}
                     style={{ y: scrollShift }}
                 >
-                    {/* GE Monogram */}
-                    <motion.div className="mb-10" initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.8 }}>
-                        <div className="font-heading font-bold text-5xl md:text-6xl text-stark tracking-tighter mb-3">GE</div>
-                        <div className="flex gap-1.5">
-                            {[
-                                { c: '#2C5DA9', l: 'Infrastructure' },
-                                { c: '#33644A', l: 'ESG' },
-                                { c: '#8D68AA', l: 'Systems' },
-                                { c: '#EC954E', l: 'Skills' },
-                                { c: '#D40114', l: 'Safety' },
-                            ].map((d, i) => (
-                                <motion.div
-                                    key={i}
-                                    className="w-2.5 h-2.5 rounded-full"
-                                    style={{ backgroundColor: d.c }}
-                                    initial={{ scale: 0 }}
-                                    animate={{ scale: 1 }}
-                                    transition={{ delay: 1 + i * 0.08 }}
-                                    title={d.l}
-                                />
-                            ))}
+                    {/* Premium Glassmorphic Logo Container */}
+                    <motion.div
+                        className="relative mb-8 md:mb-12 group"
+                        initial={{ opacity: 0, y: 30 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ delay: 0.8, duration: 0.8, ease: [0.25, 0.1, 0.25, 1] }}
+                    >
+                        {/* Ambient Deep Glow behind Logo */}
+                        <motion.div
+                            className="absolute inset-0 bg-gradient-to-tr from-[#2C5DA9]/20 via-[#8D68AA]/20 to-transparent blur-3xl"
+                            animate={{
+                                opacity: [0.3, 0.6, 0.3],
+                                scale: [1, 1.05, 1],
+                            }}
+                            transition={{ duration: 4, repeat: Infinity, ease: 'easeInOut' }}
+                        />
+
+                        <div className="relative inline-block bg-white/[0.03] backdrop-blur-xl border border-white/10 rounded-3xl p-6 md:p-8 shadow-[0_0_40px_rgba(0,0,0,0.3)] transition-all duration-700 group-hover:bg-white/[0.05] group-hover:border-white/20">
+                            {/* SVG Logo */}
+                            <Image
+                                src="/logo.svg"
+                                alt="Greenberg Logo"
+                                width={160}
+                                height={60}
+                                className="w-40 md:w-56 h-auto drop-shadow-[0_0_15px_rgba(255,255,255,0.15)] transition-transform duration-700 group-hover:scale-105"
+                            />
+
+                            {/* Orbiting Sector Indicator Dots */}
+                            <div className="absolute -bottom-3 left-1/2 -translate-x-1/2 flex gap-2.5 px-4 py-2 bg-[#0A050F]/80 backdrop-blur-md rounded-full border border-white/10">
+                                {[
+                                    { c: '#2C5DA9', l: 'Infrastructure' },
+                                    { c: '#33644A', l: 'ESG' },
+                                    { c: '#8D68AA', l: 'Systems' },
+                                    { c: '#EC954E', l: 'Skills' },
+                                    { c: '#D40114', l: 'Safety' },
+                                ].map((d, i) => (
+                                    <motion.div
+                                        key={i}
+                                        className="w-2.5 h-2.5 rounded-full shadow-lg"
+                                        style={{ backgroundColor: d.c, boxShadow: `0 0 10px ${d.c}80` }}
+                                        initial={{ scale: 0, y: 10 }}
+                                        animate={{ scale: 1, y: 0 }}
+                                        transition={{
+                                            type: "spring",
+                                            stiffness: 260,
+                                            damping: 20,
+                                            delay: 1.2 + i * 0.1
+                                        }}
+                                        whileHover={{ scale: 1.5, y: -2 }}
+                                        title={d.l}
+                                    />
+                                ))}
+                            </div>
                         </div>
                     </motion.div>
 
-                    {/* Tagline */}
-                    <motion.h2
-                        className="font-heading font-bold text-3xl sm:text-4xl md:text-5xl text-stark leading-[1.1] mb-2"
-                        initial={{ opacity: 0, y: 20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ delay: 1, duration: 0.8 }}
-                    >
-                        CREATE THE<br />FUTURE<span className="text-[#EC954E]">.</span>
-                    </motion.h2>
-                    <motion.div
-                        initial={{ opacity: 0, y: 20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ delay: 1.2, duration: 0.8 }}
-                        className="mb-8"
-                    >
-                        <span
-                            className="font-heading font-bold text-3xl sm:text-4xl md:text-5xl tracking-tight"
-                            style={{ WebkitTextStroke: '1.5px rgba(255,255,255,0.3)', WebkitTextFillColor: 'transparent' }}
+                    {/* Radiant Typography & Tagline */}
+                    <div className="relative z-10">
+                        <motion.h2
+                            className="font-heading font-bold text-4xl sm:text-5xl md:text-[3.5rem] tracking-tight text-stark leading-[1.05] mb-1"
+                            initial={{ opacity: 0, y: 20 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            transition={{ delay: 1, duration: 0.8 }}
                         >
-                            WITH US
-                        </span>
-                    </motion.div>
+                            CREATE THE
+                            <br />
+                            <motion.span
+                                className="inline-block text-transparent bg-clip-text"
+                                style={{
+                                    backgroundImage: 'linear-gradient(to right, #EC954E, #8D68AA, #2C5DA9, #EC954E)',
+                                    backgroundSize: '200% auto',
+                                }}
+                                animate={{ backgroundPosition: ['0% center', '200% center'] }}
+                                transition={{ duration: 8, ease: 'linear', repeat: Infinity }}
+                            >
+                                FUTURE
+                            </motion.span>
+                        </motion.h2>
+
+                        {/* Interactive "WITH US" */}
+                        <motion.div
+                            initial={{ opacity: 0, y: 20 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            transition={{ delay: 1.2, duration: 0.8 }}
+                            className="mb-8 relative inline-block group cursor-default"
+                        >
+                            <span
+                                className="font-heading font-bold text-4xl sm:text-5xl md:text-[3.5rem] tracking-tight relative z-10 transition-colors duration-500"
+                                style={{ WebkitTextStroke: '1px rgba(255,255,255,0.4)', WebkitTextFillColor: 'transparent' }}
+                            >
+                                WITH US
+                            </span>
+                            {/* Hover Fill Effect behind text */}
+                            <div className="absolute inset-0 bg-stark/0 group-hover:bg-stark/10 blur-xl transition-all duration-500 rounded-full" />
+                        </motion.div>
+                    </div>
 
                     {/* Description */}
                     <motion.p
-                        className="font-body text-base md:text-lg text-stark/45 mb-10 max-w-sm leading-relaxed"
+                        className="font-body text-base md:text-lg text-stark/60 mb-10 max-w-sm leading-relaxed"
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ delay: 1.4, duration: 0.8 }}
@@ -210,25 +261,64 @@ export default function Hero() {
                         Engineering solutions that defy gravity. Five pillars of excellence transforming industries across the globe.
                     </motion.p>
 
-                    {/* CTAs */}
+                    {/* Ultra-Premium Advanced CTAs */}
                     <motion.div
-                        className="flex flex-col sm:flex-row gap-4"
+                        className="flex flex-col sm:flex-row gap-5"
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ delay: 1.6, duration: 0.8 }}
                     >
-                        <MagneticButton
+                        {/* Primary Animated Gradient CTA */}
+                        <motion.a
                             href="#sectors"
-                            className="px-8 py-4 bg-stark text-void font-heading text-xs uppercase tracking-[0.15em] hover:bg-white/90 transition-colors"
+                            className="relative flex items-center justify-center gap-3 px-8 py-4 rounded-lg font-heading text-xs uppercase tracking-[0.2em] text-white overflow-hidden group"
+                            whileHover={{ scale: 1.02 }}
+                            whileTap={{ scale: 0.98 }}
                         >
-                            Explore Sectors
-                        </MagneticButton>
-                        <MagneticButton
+                            {/* Animated Gradient Background */}
+                            <motion.div
+                                className="absolute inset-0 z-0"
+                                style={{
+                                    backgroundImage: 'linear-gradient(90deg, #8D68AA, #2C5DA9, #8D68AA)',
+                                    backgroundSize: '200% 100%',
+                                }}
+                                animate={{ backgroundPosition: ['0% center', '200% center'] }}
+                                transition={{ duration: 4, ease: 'linear', repeat: Infinity }}
+                            />
+                            
+                            {/* Inner Glass Polish & Box Shadow */}
+                            <div className="absolute inset-0 z-10 rounded-lg shadow-[inset_0_1px_1px_rgba(255,255,255,0.4)]" />
+                            
+                            {/* Drop Shadow Glow */}
+                            <div className="absolute inset-0 -z-10 blur-xl bg-[#8D68AA]/40 group-hover:bg-[#8D68AA]/60 group-hover:scale-110 transition-all duration-500" />
+
+                            <span className="relative z-20 font-bold group-hover:tracking-[0.25em] transition-all duration-300">
+                                Explore Sectors
+                            </span>
+                            <ArrowRight size={14} className="relative z-20 group-hover:translate-x-1 transition-transform duration-300" />
+                        </motion.a>
+
+                        {/* Secondary Interactive Glass CTA */}
+                        <motion.a
                             href="#contact"
-                            className="px-8 py-4 border border-white/20 text-stark font-heading text-xs uppercase tracking-[0.15em] hover:bg-white/5 transition-colors flex items-center justify-center gap-2"
+                            className="relative flex items-center justify-center gap-3 px-8 py-4 rounded-lg font-heading text-xs uppercase tracking-[0.2em] text-stark overflow-hidden border border-white/20 bg-void/10 backdrop-blur-md group"
+                            whileHover={{ scale: 1.02 }}
+                            whileTap={{ scale: 0.98 }}
                         >
-                            Start a Project <ArrowRight size={14} />
-                        </MagneticButton>
+                            {/* Solid Background Fill on Hover */}
+                            <div className="absolute inset-0 bg-white/0 group-hover:bg-white/10 transition-colors duration-300 z-0" />
+                            
+                            {/* Shimmer effect sweeping across */}
+                            <motion.div 
+                                className="absolute inset-0 -translate-x-full w-1/2 bg-gradient-to-r from-transparent via-white/10 to-transparent z-10 skew-x-12"
+                                whileHover={{ x: ['100%', '300%'] }}
+                                transition={{ duration: 0.8, ease: 'easeInOut' }}
+                            />
+
+                            <span className="relative z-20 font-medium tracking-[0.15em] group-hover:tracking-[0.2em] transition-all duration-300">
+                                Start a Project
+                            </span>
+                        </motion.a>
                     </motion.div>
                 </motion.div>
             </motion.div>

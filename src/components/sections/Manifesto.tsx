@@ -1,17 +1,27 @@
 'use client';
 
-import { motion, useScroll, useTransform, useSpring } from 'framer-motion';
+import { motion, useScroll, useTransform, useSpring, MotionValue } from 'framer-motion';
 import { useRef, useState, useEffect } from 'react';
 
+// Core content sequences
 const MANIFESTO_LINES = [
     { text: "We don't just build", highlight: false },
     { text: "structures.", highlight: false },
     { text: "We architect", highlight: false },
-    { text: "possibilities.", highlight: true, color: '#2C5DA9' },
+    { text: "possibilities.", highlight: true, color: '#2C5DA9' }, // Infra Blue
     { text: "We engineer", highlight: false },
-    { text: "dreams.", highlight: true, color: '#528940' },
+    { text: "dreams.", highlight: true, color: '#528940' }, // ESG Green
     { text: "We CREATE", highlight: true, color: 'gradient' },
-    { text: "THE FUTURE.", highlight: true, color: 'future' },
+    { text: "THE FUTURE.", highlight: true, color: 'future' }, // Climax
+];
+
+// Re-ordered core sector colors for the climax
+const SECTOR_COLORS = [
+    '#2C5DA9', // Infrastructure - Blue
+    '#528940', // ESG - Green
+    '#8D68AA', // Systems - Purple
+    '#EC954E', // Skills - Orange
+    '#D40114', // Safety - Red
 ];
 
 export default function Manifesto() {
@@ -23,14 +33,14 @@ export default function Manifesto() {
         offset: ['start start', 'end end'],
     });
 
-    // Smooth spring animation for scroll progress
+    // Spring-loaded damping for 60FPS precision
     const smoothProgress = useSpring(scrollYProgress, {
-        stiffness: 100,
-        damping: 30,
+        stiffness: 120,
+        damping: 40, // Increased damping for less rubber-banding, feeling heavier/more industrial
         restDelta: 0.001,
     });
 
-    // Track which line should be visible based on scroll
+    // Track which line should be visible based on scroll (for timeline HUD)
     useEffect(() => {
         const unsubscribe = scrollYProgress.on('change', (value) => {
             const lineIndex = Math.floor(value * MANIFESTO_LINES.length);
@@ -44,28 +54,30 @@ export default function Manifesto() {
             ref={containerRef}
             id="manifesto"
             className="relative bg-void"
-            style={{ height: '400vh' }} // Long scroll area for smooth animation
+            style={{ height: '400vh' }} // Extended scroll buffer
         >
-            {/* Sticky container */}
-            <div className="sticky top-0 h-screen overflow-hidden flex items-center justify-center">
-                {/* Animated background elements */}
-                <BackgroundElements progress={smoothProgress} />
+            <div className="sticky top-0 h-screen overflow-hidden flex items-center justify-center bg-[#050505]">
+                {/* 1. Hardware-Accelerated Cybernetic Grid Background */}
+                <BackgroundGrid progress={smoothProgress} />
 
-                {/* Main content */}
-                <div className="relative z-10 max-w-6xl mx-auto px-6 md:px-12">
-                    {/* Label */}
-                    <motion.p
-                        className="font-body text-sm tracking-[0.3em] text-stark/40 uppercase mb-8 md:mb-12"
+                {/* 2. Main Content Wrapper */}
+                <div className="relative z-10 max-w-6xl w-full mx-auto px-6 md:px-12 flex flex-col items-center justify-center">
+                    
+                    {/* Top Identity Label */}
+                    <motion.div
+                        className="absolute top-12 md:top-24 w-full text-center"
                         style={{
-                            opacity: useTransform(smoothProgress, [0, 0.05], [0, 1]),
-                            y: useTransform(smoothProgress, [0, 0.05], [30, 0]),
+                            opacity: useTransform(smoothProgress, [0, 0.05, 0.8, 0.9], [0, 1, 1, 0]),
+                            y: useTransform(smoothProgress, [0, 0.05], [20, 0]),
                         }}
                     >
-                        Our Manifesto
-                    </motion.p>
+                        <p className="font-body text-xs md:text-sm tracking-[0.4em] text-stark/30 uppercase">
+                            Our Manifesto
+                        </p>
+                    </motion.div>
 
-                    {/* Text display area */}
-                    <div className="relative min-h-[300px] md:min-h-[400px]">
+                    {/* 3. 3D Typography Matrix */}
+                    <div className="relative w-full min-h-[400px] flex items-center justify-center">
                         {MANIFESTO_LINES.map((line, index) => (
                             <ManifestoLine
                                 key={index}
@@ -76,420 +88,278 @@ export default function Manifesto() {
                             />
                         ))}
                     </div>
-
-                    {/* Progress indicator */}
-                    <motion.div
-                        className="mt-16 md:mt-24 flex items-center gap-4"
-                        style={{
-                            opacity: useTransform(smoothProgress, [0.1, 0.2], [0, 1]),
-                        }}
-                    >
-                        <div className="flex gap-2">
-                            {MANIFESTO_LINES.map((_, i) => (
-                                <motion.div
-                                    key={i}
-                                    className="w-8 h-1 rounded-full"
-                                    style={{
-                                        backgroundColor: i <= currentLine ? '#FFFFFF' : 'rgba(255,255,255,0.2)',
-                                        scaleX: i === currentLine ? 1.5 : 1,
-                                    }}
-                                    transition={{ duration: 0.3 }}
-                                />
-                            ))}
-                        </div>
-                        <span className="font-body text-sm text-stark/40 ml-4">Since 1999</span>
-                    </motion.div>
                 </div>
 
-                {/* Side geometric elements */}
-                <GeometricAccents progress={smoothProgress} />
+                {/* 4. Precision Telemetry Timeline (Right HUD) */}
+                <TelemetryHUD currentLine={currentLine} totalLines={MANIFESTO_LINES.length} progress={smoothProgress} />
             </div>
         </section>
     );
 }
 
+// ----------------------------------------------------------------------
+// 1. High-Performance Background Grid
+// ----------------------------------------------------------------------
+function BackgroundGrid({ progress }: { progress: MotionValue<number> }) {
+    // We map scroll to a subtle parallax tracking motion on the grid points
+    const yOffset = useTransform(progress, [0, 1], [0, 150]);
+    const scale = useTransform(progress, [0, 1], [1, 1.2]);
+    const gridOpacity = useTransform(progress, [0.8, 1], [0.15, 0]); // Fades out before Climax
+
+    return (
+        <motion.div 
+            className="absolute inset-0 pointer-events-none"
+            style={{ opacity: gridOpacity, scale }}
+        >
+            {/* Dark vignette to create depth focus */}
+            <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,transparent_0%,#050505_90%)] z-10" />
+            
+            <motion.div 
+                className="absolute inset-[-50%] w-[200%] h-[200%]"
+                style={{ y: yOffset }}
+            >
+                <svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
+                    <defs>
+                        <pattern id="cyber-grid" width="60" height="60" patternUnits="userSpaceOnUse">
+                            <path d="M 60 0 L 0 0 0 60" fill="none" stroke="rgba(255,255,255,0.03)" strokeWidth="1" />
+                        </pattern>
+                    </defs>
+                    <rect width="100%" height="100%" fill="url(#cyber-grid)" />
+                </svg>
+            </motion.div>
+        </motion.div>
+    );
+}
+
+// ----------------------------------------------------------------------
+// 2. 3D Typography Engine (Split Letters/Words)
+// ----------------------------------------------------------------------
 interface ManifestoLineProps {
     line: { text: string; highlight: boolean; color?: string };
     index: number;
     totalLines: number;
-    progress: any;
+    progress: MotionValue<number>;
 }
 
 function ManifestoLine({ line, index, totalLines, progress }: ManifestoLineProps) {
     const segmentSize = 1 / totalLines;
     const start = index * segmentSize;
-    const peak = start + segmentSize * 0.5;
+    const peak = start + segmentSize * 0.4;
     const end = start + segmentSize;
 
-    // Calculate transforms based on scroll position
+    // 3D Depth Transforms
+    // Z-axis simulation via scale & blur
+    const zScale = useTransform(
+        progress,
+        [start, start + segmentSize * 0.2, peak, end - segmentSize * 0.2, end],
+        [0.85, 1, 1.05, 1.15, index === totalLines - 1 ? 1 : 1.3]
+    );
+
     const opacity = useTransform(
         progress,
-        [start, start + segmentSize * 0.2, peak, end - segmentSize * 0.1, end],
-        [0, 1, 1, 1, index === totalLines - 1 ? 1 : 0]
+        [start, start + segmentSize * 0.15, peak, end - segmentSize * 0.15, end],
+        [0, 1, 1, 0.8, index === totalLines - 1 ? 1 : 0]
     );
 
     const y = useTransform(
         progress,
-        [start, start + segmentSize * 0.3, peak, end],
-        [80, 0, 0, index === totalLines - 1 ? 0 : -50]
+        [start, start + segmentSize * 0.2, peak, end],
+        [40, 0, 0, index === totalLines - 1 ? 0 : -80]
     );
 
-    const scale = useTransform(
+    const blurNum = useTransform(
         progress,
-        [start, peak, end],
-        [0.9, 1, index === totalLines - 1 ? 1 : 0.95]
+        [start, start + segmentSize * 0.15, peak, end - segmentSize * 0.15, end],
+        [12, 0, 0, 4, index === totalLines - 1 ? 0 : 20]
     );
+    const filter = useTransform(blurNum, (v) => `blur(${v}px)`);
 
-    const blur = useTransform(
-        progress,
-        [start, start + segmentSize * 0.2, peak, end - segmentSize * 0.1, end],
-        [10, 0, 0, 0, index === totalLines - 1 ? 0 : 5]
-    );
+    // Text splitting for words
+    const words = line.text.split(' ');
 
-    // Text style based on highlight
-    const getTextStyle = () => {
-        if (!line.highlight) {
-            return 'text-stark/60';
-        }
-        if (line.color === 'gradient') {
-            return 'bg-gradient-to-r from-blue-400 via-purple-500 to-pink-500 bg-clip-text text-transparent';
-        }
-        if (line.color === 'future') {
-            return ''; // Handled by special component
-        }
-        return '';
-    };
-
-    // Special rendering for "THE FUTURE." line
     if (line.color === 'future') {
         return (
             <motion.div
-                className="absolute inset-0 flex items-center justify-center"
-                style={{
-                    opacity,
-                    y,
-                    scale,
-                    filter: useTransform(blur, (v) => `blur(${v}px)`),
-                }}
+                className="absolute inset-0 flex items-center justify-center pointer-events-auto"
+                style={{ opacity, y, scale: zScale, filter }}
             >
-                <InteractiveFutureText />
+                <InteractiveFutureText progress={progress} peak={peak} />
             </motion.div>
         );
     }
 
     return (
         <motion.div
-            className="absolute inset-0 flex items-center justify-center"
-            style={{
-                opacity,
-                y,
-                scale,
-                filter: useTransform(blur, (v) => `blur(${v}px)`),
-            }}
+            className="absolute inset-0 flex items-center justify-center pointer-events-none"
+            style={{ opacity, y, scale: zScale, filter }}
         >
-            <h2
-                className={`font-heading text-4xl md:text-6xl lg:text-8xl font-bold text-center leading-tight ${getTextStyle()}`}
-                style={line.highlight && line.color !== 'gradient' && line.color !== 'future' ? { color: line.color } : undefined}
-            >
-                {line.text}
+            <h2 className="font-heading text-5xl md:text-7xl lg:text-8xl xl:text-9xl font-bold text-center leading-tight flex flex-wrap justify-center gap-[0.3em]">
+                {words.map((word, wIdx) => {
+                    const wordColor = getWordColor(line, wIdx);
+                    
+                    return (
+                        <span 
+                            key={wIdx} 
+                            style={wordColor.style}
+                            className={wordColor.className}
+                        >
+                            {word}
+                        </span>
+                    );
+                })}
             </h2>
         </motion.div>
     );
 }
 
-// Interactive "THE FUTURE." text with all-sector gradient and cursor light
-function InteractiveFutureText() {
+// Helper to colorize specific words or lines based on the manifesto config
+function getWordColor(line: { text: string; highlight: boolean; color?: string }, wordIndex: number) {
+    if (!line.highlight) {
+        return { className: 'text-stark/70 drop-shadow-[0_0_15px_rgba(255,255,255,0.1)]' };
+    }
+    if (line.color === 'gradient') {
+        return { className: 'bg-gradient-to-r from-blue-400 via-purple-500 to-pink-500 bg-clip-text text-transparent' };
+    }
+    // Solid sector colors
+    return { 
+        className: 'text-transparent bg-clip-text',
+        style: {
+            backgroundImage: `linear-gradient(to bottom right, ${line.color}, #ffffff)`,
+            filter: `drop-shadow(0px 0px 20px ${line.color}40)`
+        }
+    };
+}
+
+// ----------------------------------------------------------------------
+// 3. The Climax ("THE FUTURE.") Interactive Component
+// ----------------------------------------------------------------------
+function InteractiveFutureText({ progress, peak }: { progress: MotionValue<number>, peak: number }) {
     const containerRef = useRef<HTMLDivElement>(null);
-    const [mousePos, setMousePos] = useState({ x: 50, y: 50 });
+    const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
     const [isHovered, setIsHovered] = useState(false);
 
-    // Smooth mouse position
-    const smoothX = useSpring(mousePos.x, { stiffness: 150, damping: 20 });
-    const smoothY = useSpring(mousePos.y, { stiffness: 150, damping: 20 });
-
+    // Track mouse relative to center of the text core
     const handleMouseMove = (e: React.MouseEvent) => {
         if (!containerRef.current) return;
         const rect = containerRef.current.getBoundingClientRect();
-        const x = ((e.clientX - rect.left) / rect.width) * 100;
-        const y = ((e.clientY - rect.top) / rect.height) * 100;
+        // Calculate distance from center (-1 to 1)
+        const x = ((e.clientX - rect.left) / rect.width) * 2 - 1;
+        const y = ((e.clientY - rect.top) / rect.height) * 2 - 1;
+        
         setMousePos({ x, y });
     };
 
-    // All 5 sector colors
-    const sectorColors = [
-        '#2C5DA9', // Infrastructure - Blue
-        '#528940', // ESG - Green
-        '#8D68AA', // Systems - Purple
-        '#EC954E', // Skills - Orange
-        '#D40114', // Safety - Red
-    ];
+    // Magnetic transforms
+    const smoothX = useSpring(isHovered ? mousePos.x * 20 : 0, { stiffness: 100, damping: 25 });
+    const smoothY = useSpring(isHovered ? mousePos.y * 20 : 0, { stiffness: 100, damping: 25 });
+    
+    // Chromatic Aberration spreads heavily on hover
+    const aberrationR = useSpring(isHovered ? mousePos.x * 12 : 0, { stiffness: 120, damping: 20 });
+    const aberrationB = useSpring(isHovered ? mousePos.x * -12 : 0, { stiffness: 120, damping: 20 });
+
+    // The entire room ignites when progress passes the text's peak
+    const igniteOpacity = useTransform(progress, [peak, 1], [0, 1]);
 
     return (
-        <div
+        <div 
             ref={containerRef}
-            className="relative cursor-pointer select-none"
+            className="relative cursor-none select-none w-full h-full flex items-center justify-center z-50"
             onMouseMove={handleMouseMove}
             onMouseEnter={() => setIsHovered(true)}
             onMouseLeave={() => setIsHovered(false)}
         >
-            {/* Cursor-following spotlight glow - only on hover */}
-            {isHovered && (
+            {/* Climax Room Ignition - Sector Convergence Glow */}
+            <motion.div 
+                className="absolute inset-[-100%] rounded-full pointer-events-none"
+                style={{ 
+                    opacity: igniteOpacity,
+                    background: `conic-gradient(from 0deg, ${SECTOR_COLORS[0]}40, ${SECTOR_COLORS[1]}40, ${SECTOR_COLORS[2]}40, ${SECTOR_COLORS[3]}40, ${SECTOR_COLORS[4]}40, ${SECTOR_COLORS[0]}40)`,
+                    filter: 'blur(80px)',
+                    scale: useTransform(progress, [peak, 1], [0.5, 1.2])
+                }}
+            />
+
+            <motion.div 
+                className="relative flex items-center justify-center p-20"
+                style={{ x: smoothX, y: smoothY }}
+            >
+                {/* Layer 1: Red Chromatic Split */}
+                <motion.h2 
+                    className="absolute inset-0 flex items-center justify-center font-heading text-6xl md:text-8xl lg:text-9xl font-bold text-center leading-tight tracking-tighter text-[#FF3B30] mix-blend-screen opacity-70"
+                    style={{ x: aberrationR }}
+                >
+                    THE<br />FUTURE.
+                </motion.h2>
+
+                {/* Layer 2: Blue Chromatic Split */}
+                <motion.h2 
+                    className="absolute inset-0 flex items-center justify-center font-heading text-6xl md:text-8xl lg:text-9xl font-bold text-center leading-tight tracking-tighter text-[#2C5DA9] mix-blend-screen opacity-70"
+                    style={{ x: aberrationB }}
+                >
+                    THE<br />FUTURE.
+                </motion.h2>
+
+                {/* Layer 3: Solid Core White Text */}
+                <motion.h2 
+                    className="relative font-heading text-6xl md:text-8xl lg:text-9xl font-bold text-center leading-tight tracking-tighter text-stark"
+                    style={{
+                        textShadow: isHovered ? '0px 0px 30px rgba(255,255,255,0.4)' : '0px 0px 10px rgba(255,255,255,0.1)'
+                    }}
+                >
+                    THE<br />FUTURE.
+                </motion.h2>
+            </motion.div>
+        </div>
+    );
+}
+
+// ----------------------------------------------------------------------
+// 4. Precision Telemetry Timeline HUD
+// ----------------------------------------------------------------------
+function TelemetryHUD({ currentLine, totalLines, progress }: { currentLine: number, totalLines: number, progress: MotionValue<number> }) {
+    const laserHeight = useTransform(progress, [0, 1], ['0%', '100%']);
+
+    return (
+        <div className="absolute right-4 md:right-12 top-1/4 bottom-1/4 w-12 flex flex-col items-center pointer-events-none z-20">
+            {/* The Track */}
+            <div className="relative w-[2px] h-full bg-white/5 rounded-full overflow-hidden">
+                {/* The Laser Fill */}
                 <motion.div
-                    className="absolute pointer-events-none"
-                    style={{
-                        width: 250,
-                        height: 250,
-                        left: `${smoothX.get()}%`,
-                        top: `${smoothY.get()}%`,
-                        x: '-50%',
-                        y: '-50%',
-                        background: 'radial-gradient(circle, rgba(255,255,255,0.25) 0%, transparent 50%)',
-                        filter: 'blur(30px)',
-                    }}
-                    initial={{ opacity: 0, scale: 0.8 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    exit={{ opacity: 0, scale: 0.8 }}
-                    transition={{ duration: 0.2 }}
+                    className="w-full bg-gradient-to-b from-transparent via-[#FF3B30] to-[#FF3B30]"
+                    style={{ height: laserHeight }}
                 />
-            )}
-
-            {/* Main text container */}
-            <div className="relative">
-                {/* Shadow/glow layer */}
-                <motion.h2
-                    className="absolute inset-0 font-heading text-4xl md:text-6xl lg:text-8xl font-bold text-center leading-tight"
-                    style={{
-                        background: `linear-gradient(135deg, ${sectorColors.join(', ')})`,
-                        WebkitBackgroundClip: 'text',
-                        WebkitTextFillColor: 'transparent',
-                        backgroundSize: '300% 300%',
-                        filter: 'blur(20px)',
-                        opacity: 0.5,
-                    }}
-                    animate={{
-                        backgroundPosition: ['0% 0%', '100% 100%', '0% 0%'],
-                    }}
-                    transition={{
-                        duration: 5,
-                        repeat: Infinity,
-                        ease: 'easeInOut',
-                    }}
-                >
-                    THE<br />FUTURE.
-                </motion.h2>
-
-                {/* Main gradient text */}
-                <motion.h2
-                    className="relative font-heading text-4xl md:text-6xl lg:text-8xl font-bold text-center leading-tight"
-                    style={{
-                        background: `linear-gradient(135deg, ${sectorColors.join(', ')})`,
-                        WebkitBackgroundClip: 'text',
-                        WebkitTextFillColor: 'transparent',
-                        backgroundSize: '300% 300%',
-                    }}
-                    animate={{
-                        backgroundPosition: ['0% 0%', '100% 100%', '0% 0%'],
-                    }}
-                    transition={{
-                        duration: 5,
-                        repeat: Infinity,
-                        ease: 'easeInOut',
-                    }}
-                >
-                    THE<br />FUTURE.
-                </motion.h2>
-
-                {/* Interactive brightness on hover - applied to text only */}
-                {isHovered && (
-                    <motion.h2
-                        className="absolute inset-0 font-heading text-4xl md:text-6xl lg:text-8xl font-bold text-center leading-tight pointer-events-none"
-                        style={{
-                            background: `radial-gradient(circle at ${smoothX.get()}% ${smoothY.get()}%, rgba(255,255,255,0.5) 0%, transparent 40%)`,
-                            WebkitBackgroundClip: 'text',
-                            WebkitTextFillColor: 'transparent',
-                            mixBlendMode: 'overlay',
-                        }}
-                        initial={{ opacity: 0 }}
-                        animate={{ opacity: 1 }}
-                        exit={{ opacity: 0 }}
-                    >
-                        THE<br />FUTURE.
-                    </motion.h2>
-                )}
             </div>
-
-            {/* Floating particles around text */}
-            {[...Array(6)].map((_, i) => (
-                <motion.div
-                    key={i}
-                    className="absolute w-1 h-1 rounded-full pointer-events-none"
-                    style={{
-                        background: sectorColors[i % sectorColors.length],
-                        left: `${10 + i * 15}%`,
-                        top: `${20 + (i % 2) * 60}%`,
-                    }}
-                    animate={{
-                        y: [0, -20, 0],
-                        x: [0, i % 2 === 0 ? 10 : -10, 0],
-                        opacity: [0.3, 0.8, 0.3],
-                        scale: [1, 1.5, 1],
-                    }}
-                    transition={{
-                        duration: 2 + i * 0.3,
-                        repeat: Infinity,
-                        delay: i * 0.2,
-                    }}
-                />
-            ))}
-        </div>
-    );
-}
-
-function BackgroundElements({ progress }: { progress: any }) {
-    // Rotating quotes
-    const quoteRotate = useTransform(progress, [0, 1], [0, 360]);
-    const quoteScale = useTransform(progress, [0, 0.5, 1], [0.5, 1, 0.5]);
-    const quoteOpacity = useTransform(progress, [0, 0.2, 0.8, 1], [0.02, 0.05, 0.05, 0.02]);
-
-    // Floating particles
-    const particleY1 = useTransform(progress, [0, 1], [100, -100]);
-    const particleY2 = useTransform(progress, [0, 1], [50, -150]);
-    const particleY3 = useTransform(progress, [0, 1], [150, -50]);
-
-    return (
-        <div className="absolute inset-0 overflow-hidden pointer-events-none">
-            {/* Large rotating quote mark */}
-            <motion.div
-                className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 font-heading text-[40rem] text-white select-none"
-                style={{
-                    rotate: quoteRotate,
-                    scale: quoteScale,
-                    opacity: quoteOpacity,
-                }}
-            >
-                "
-            </motion.div>
-
-            {/* Gradient orbs that move with scroll */}
-            <motion.div
-                className="absolute w-[600px] h-[600px] rounded-full"
-                style={{
-                    background: 'radial-gradient(circle, rgba(44, 93, 169, 0.15) 0%, transparent 70%)',
-                    left: '10%',
-                    top: '20%',
-                    y: particleY1,
-                    scale: useTransform(progress, [0, 0.5, 1], [0.8, 1.2, 0.8]),
-                }}
-            />
-            <motion.div
-                className="absolute w-[400px] h-[400px] rounded-full"
-                style={{
-                    background: 'radial-gradient(circle, rgba(141, 104, 170, 0.15) 0%, transparent 70%)',
-                    right: '15%',
-                    top: '40%',
-                    y: particleY2,
-                    scale: useTransform(progress, [0, 0.5, 1], [1, 0.8, 1.2]),
-                }}
-            />
-            <motion.div
-                className="absolute w-[500px] h-[500px] rounded-full"
-                style={{
-                    background: 'radial-gradient(circle, rgba(82, 137, 64, 0.12) 0%, transparent 70%)',
-                    left: '30%',
-                    bottom: '10%',
-                    y: particleY3,
-                }}
-            />
-
-            {/* Animated lines */}
-            <motion.div
-                className="absolute left-0 top-1/4 w-full h-[1px]"
-                style={{
-                    background: 'linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent)',
-                    scaleX: useTransform(progress, [0.1, 0.3], [0, 1]),
-                    opacity: useTransform(progress, [0.1, 0.3, 0.7, 0.9], [0, 0.5, 0.5, 0]),
-                }}
-            />
-            <motion.div
-                className="absolute left-0 bottom-1/4 w-full h-[1px]"
-                style={{
-                    background: 'linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent)',
-                    scaleX: useTransform(progress, [0.2, 0.4], [0, 1]),
-                    opacity: useTransform(progress, [0.2, 0.4, 0.6, 0.8], [0, 0.5, 0.5, 0]),
-                }}
-            />
-        </div>
-    );
-}
-
-function GeometricAccents({ progress }: { progress: any }) {
-    // Left side elements
-    const leftY = useTransform(progress, [0, 1], [200, -200]);
-    const rightY = useTransform(progress, [0, 1], [-100, 300]);
-
-    return (
-        <>
-            {/* Left side geometric shapes */}
-            <motion.div
-                className="absolute left-8 md:left-16 top-1/2 -translate-y-1/2 flex flex-col gap-6"
-                style={{ y: leftY }}
-            >
-                {[0, 1, 2].map((i) => (
-                    <motion.div
-                        key={i}
-                        className="w-2 h-2 border border-white/20"
-                        style={{
-                            rotate: useTransform(progress, [0, 1], [0, 180 + i * 60]),
-                            opacity: useTransform(progress, [i * 0.1, i * 0.1 + 0.2], [0, 0.5]),
-                        }}
-                    />
+            
+            {/* The Markers */}
+            <div className="absolute inset-0 flex flex-col justify-between items-center py-[2px]">
+                {Array.from({ length: totalLines }).map((_, i) => (
+                    <div key={i} className="relative flex items-center justify-center">
+                        {/* Tick mark */}
+                        <motion.div 
+                            className="w-3 h-[2px] rounded-full transition-colors duration-300"
+                            style={{
+                                backgroundColor: currentLine >= i ? '#FFFFFF' : 'rgba(255,255,255,0.2)',
+                                boxShadow: currentLine === i ? '0 0 10px #FFFFFF' : 'none',
+                            }}
+                        />
+                        {/* Active Label Index */}
+                        {currentLine === i && (
+                            <motion.span 
+                                className="absolute right-6 font-mono text-[10px] text-stark drop-shadow-md"
+                                initial={{ opacity: 0, x: 10 }}
+                                animate={{ opacity: 1, x: 0 }}
+                                transition={{ duration: 0.2 }}
+                            >
+                                0{i+1}
+                            </motion.span>
+                        )}
+                    </div>
                 ))}
-            </motion.div>
-
-            {/* Right side geometric shapes */}
-            <motion.div
-                className="absolute right-8 md:right-16 top-1/2 -translate-y-1/2 flex flex-col gap-6"
-                style={{ y: rightY }}
-            >
-                {[0, 1, 2, 3].map((i) => (
-                    <motion.div
-                        key={i}
-                        className="w-3 h-3 rounded-full border border-white/20"
-                        style={{
-                            scale: useTransform(progress, [i * 0.1, i * 0.1 + 0.3], [0, 1]),
-                            opacity: useTransform(progress, [i * 0.1, i * 0.1 + 0.2], [0, 0.4]),
-                        }}
-                    />
-                ))}
-            </motion.div>
-
-            {/* Corner brackets */}
-            <motion.div
-                className="absolute top-20 left-20 w-20 h-20 border-l-2 border-t-2 border-white/10"
-                style={{
-                    scale: useTransform(progress, [0, 0.2], [0.5, 1]),
-                    opacity: useTransform(progress, [0, 0.2], [0, 0.5]),
-                }}
-            />
-            <motion.div
-                className="absolute bottom-20 right-20 w-20 h-20 border-r-2 border-b-2 border-white/10"
-                style={{
-                    scale: useTransform(progress, [0.8, 1], [0.5, 1]),
-                    opacity: useTransform(progress, [0.8, 1], [0, 0.5]),
-                }}
-            />
-
-            {/* Scroll progress line on the side */}
-            <motion.div
-                className="absolute right-4 md:right-8 top-1/4 w-[2px] h-1/2 bg-white/10 rounded-full overflow-hidden"
-            >
-                <motion.div
-                    className="w-full bg-gradient-to-b from-blue-400 via-purple-500 to-pink-500 rounded-full"
-                    style={{
-                        height: useTransform(progress, [0, 1], ['0%', '100%']),
-                    }}
-                />
-            </motion.div>
-        </>
+            </div>
+            
+            <div className="absolute -bottom-8 font-mono text-[9px] text-stark/40 tracking-widest text-right rotate-180" style={{ writingMode: 'vertical-rl' }}>
+                SCROLL SEQUENCE
+            </div>
+        </div>
     );
 }

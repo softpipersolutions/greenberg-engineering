@@ -1,6 +1,6 @@
 'use client';
 
-import { motion, useMotionValue, useSpring, useTransform } from 'framer-motion';
+import { motion, useMotionValue, useSpring } from 'framer-motion';
 import { useRef, ReactNode } from 'react';
 
 interface MagneticButtonProps {
@@ -9,6 +9,7 @@ interface MagneticButtonProps {
     onClick?: () => void;
     href?: string;
     strength?: number;
+    type?: 'button' | 'submit' | 'reset';
 }
 
 export default function MagneticButton({
@@ -17,6 +18,7 @@ export default function MagneticButton({
     onClick,
     href,
     strength = 0.3,
+    type = 'button',
 }: MagneticButtonProps) {
     const ref = useRef<HTMLDivElement>(null);
 
@@ -46,9 +48,10 @@ export default function MagneticButton({
 
     return (
         <Component
-            ref={ref as any}
+            ref={ref as React.Ref<HTMLButtonElement & HTMLAnchorElement>}
             href={href}
             onClick={onClick}
+            type={!href ? type : undefined}
             className={`relative overflow-hidden group ${className}`}
             onMouseMove={handleMouseMove}
             onMouseLeave={handleMouseLeave}

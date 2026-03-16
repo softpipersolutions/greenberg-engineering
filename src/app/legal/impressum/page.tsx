@@ -25,7 +25,7 @@ export default function ImpressumPage() {
                     <div>
                         <h3 className="text-stark font-heading text-2xl mb-2">Contact</h3>
                         <p>Phone: +91 124 456 7890</p>
-                        <p>Email: contact@greenberg.engineering</p>
+                        <p>Email: greenberg.connect@gmail.com</p>
                     </div>
 
                     <div>

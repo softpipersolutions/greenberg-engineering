@@ -18,7 +18,7 @@ export default function InfraQPreview() {
     const rotateX = useTransform(scrollYProgress, [0, 0.5], [45, 0]);
 
     return (
-        <section ref={containerRef} className="py-32 bg-void relative overflow-hidden">
+        <section ref={containerRef} id="infra-q-preview" className="py-32 bg-void relative overflow-hidden">
             <div className="container mx-auto px-6">
                 <motion.div
                     style={{ scale, opacity, rotateX, transformPerspective: '1000px' }}
@@ -49,7 +49,7 @@ export default function InfraQPreview() {
                             transition={{ delay: 0.3 }}
                             className="font-heading text-4xl md:text-6xl lg:text-7xl font-bold text-stark mb-6 tracking-tight max-w-4xl mx-auto"
                         >
-                            India's Infrastructure Needs a <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#8D68AA] to-[#F4D6FF]">Brain</span>
+                            India&apos;s Infrastructure Needs a <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#8D68AA] to-[#F4D6FF]">Brain</span>
                         </motion.h2>
 
                         <motion.p
@@ -80,17 +80,27 @@ export default function InfraQPreview() {
     );
 }
 
+interface Node {
+    id: number;
+    cx: string;
+    cy: string;
+    duration: number;
+    delay: number;
+}
+
 function GridAnimation() {
-    const [nodes, setNodes] = useState<any[]>([]);
+    const [nodes, setNodes] = useState<Node[]>([]);
 
     useEffect(() => {
-        setNodes([...Array(10)].map((_, i) => ({
-            id: i,
-            cx: `${Math.random() * 100}%`,
-            cy: `${Math.random() * 100}%`,
-            duration: 2 + Math.random() * 3,
-            delay: Math.random() * 2,
-        })));
+        setNodes(
+            [...Array(10)].map((_, i) => ({
+                id: i,
+                cx: `${Math.random() * 100}%`,
+                cy: `${Math.random() * 100}%`,
+                duration: 2 + Math.random() * 3,
+                delay: Math.random() * 2,
+            }))
+        );
     }, []);
 
     return (

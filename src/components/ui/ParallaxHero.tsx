@@ -1,6 +1,6 @@
 'use client';
 
-import { motion, useScroll, useTransform, useMotionTemplate, useMotionValue } from 'framer-motion';
+import { motion, useScroll, useTransform, useMotionValue } from 'framer-motion';
 import { useRef, MouseEvent } from 'react';
 
 interface ParallaxHeroProps {
@@ -17,8 +17,7 @@ export default function ParallaxHero({
     highlight,
     description,
     sectorId,
-    gradient,
-    pattern = 'grid'
+    gradient
 }: ParallaxHeroProps) {
     const containerRef = useRef<HTMLDivElement>(null);
     const { scrollYProgress } = useScroll({

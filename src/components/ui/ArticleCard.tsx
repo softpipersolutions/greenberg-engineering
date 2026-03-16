@@ -2,7 +2,6 @@
 
 import { motion } from 'framer-motion';
 import { ArrowUpRight, Calendar, Clock, Download } from 'lucide-react';
-import MagneticButton from './MagneticButton';
 
 interface ArticleCardProps {
     type: 'Article' | 'Whitepaper' | 'Case Study';

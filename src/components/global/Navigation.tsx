@@ -4,6 +4,7 @@ import { motion, useScroll, useTransform, AnimatePresence } from 'framer-motion'
 import { useState, useEffect } from 'react';
 import { Menu, X, ChevronDown } from 'lucide-react';
 import Link from 'next/link';
+import Image from 'next/image';
 
 // Navigation Structure
 const navData = [
@@ -66,13 +67,20 @@ export default function Navigation() {
                 <div className="flex items-center justify-between h-20 md:h-24">
                     {/* Logo */}
                     <Link href="/">
-                        <motion.span
-                            className="font-heading text-xl md:text-2xl font-bold text-stark tracking-tight cursor-pointer"
-                            whileHover={{ scale: 1.02 }}
-                            whileTap={{ scale: 0.98 }}
+                        <motion.div
+                            whileHover={{ scale: 1.05 }}
+                            whileTap={{ scale: 0.95 }}
+                            className="cursor-pointer flex items-center h-full"
                         >
-                            GREENBERG
-                        </motion.span>
+                            <Image
+                                src="/logo-header.svg"
+                                alt="Greenberg Engineering Logo"
+                                width={350}
+                                height={88}
+                                className="h-14 md:h-16 lg:h-20 w-auto object-contain drop-shadow-[0_0_15px_rgba(255,255,255,0.1)]"
+                                priority
+                            />
+                        </motion.div>
                     </Link>
 
                     {/* Desktop Navigation */}

@@ -88,7 +88,7 @@ export default function InsightsList() {
                 {/* Grid */}
                 <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
                     {insights.map((article, i) => (
-                        <ArticleCard key={i} article={article as any} index={i} />
+                        <ArticleCard key={i} article={article as { type: 'Whitepaper' | 'Case Study' | 'Article', title: string, description: string, date: string, readTime: string, link: string, downloadable?: boolean }} index={i} />
                     ))}
                 </div>
             </div>

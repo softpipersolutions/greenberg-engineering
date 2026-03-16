@@ -14,7 +14,7 @@ export function useParallax(options: ParallaxOptions = {}) {
 
     const { scrollYProgress } = useScroll({
         target: ref,
-        offset: offset as any,
+        offset: offset as ['start end', 'end start'],
     });
 
     const y = useTransform(scrollYProgress, [0, 1], [100 * speed, -100 * speed]);

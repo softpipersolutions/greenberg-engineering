@@ -1,6 +1,6 @@
 'use client';
 
-import { motion, useScroll, useTransform } from 'framer-motion';
+import { motion } from 'framer-motion';
 import { useRef } from 'react';
 
 const timelineEvents = [
@@ -26,7 +26,7 @@ export default function Timeline() {
     );
 }
 
-function TimelineItem({ event, index }: { event: any, index: number }) {
+function TimelineItem({ event, index }: { event: { year: string, title: string, description: string }, index: number }) {
     const ref = useRef(null);
     const isEven = index % 2 === 0;
 

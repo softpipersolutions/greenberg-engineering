@@ -1,7 +1,6 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { cn } from '@/lib/utils'; // Assuming generic utility exists, else will be standard class string
 
 interface BentoItemProps {
     title: string;

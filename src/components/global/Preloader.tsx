@@ -16,7 +16,9 @@ export default function Preloader() {
                     setTimeout(() => setIsLoading(false), 500);
                     return 100;
                 }
-                return prev + Math.random() * 15;
+                // Use a deterministic pseudo-random increment to avoid impure function warnings
+                const increment = 5 + (prev % 10);
+                return prev + increment;
             });
         }, 100);
 

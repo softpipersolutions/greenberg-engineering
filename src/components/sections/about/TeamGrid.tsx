@@ -75,7 +75,7 @@ export default function TeamGrid() {
 
                 <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-7xl mx-auto">
                     {team.map((member, i) => (
-                        <TeamCard key={i} member={member} index={i} />
+                        <TeamCard key={i} member={member} />
                     ))}
                 </div>
             </div>
@@ -83,7 +83,7 @@ export default function TeamGrid() {
     );
 }
 
-function TeamCard({ member, index }: { member: any, index: number }) {
+function TeamCard({ member }: { member: { name: string, role: string, creds: string[], bio: string, initials: string, color: string, delay: number } }) {
     return (
         <motion.div
             initial={{ opacity: 0, y: 20 }}

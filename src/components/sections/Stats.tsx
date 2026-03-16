@@ -7,38 +7,38 @@ import { SECTOR_GRADIENTS } from '@/lib/gradients';
 
 const stats = [
     {
-        value: 25,
+        value: 15,
         suffix: '+',
-        label: 'Years of Excellence',
-        description: 'Pioneering engineering solutions',
+        label: 'Active Megaprojects',
+        description: 'Pioneering next-gen infrastructure',
         gradient: SECTOR_GRADIENTS.infrastructure,
     },
     {
-        value: 500,
-        suffix: '+',
-        label: 'Projects Delivered',
-        description: 'Across 30+ countries',
+        value: 100,
+        suffix: '%',
+        label: 'Net-Zero Designs',
+        description: 'Sustainable by default',
         gradient: SECTOR_GRADIENTS.esg,
     },
     {
-        value: 1200,
+        value: 50,
         suffix: '+',
-        label: 'Engineers Worldwide',
-        description: 'United by excellence',
+        label: 'Elite Engineers',
+        description: 'Top-tier global talent',
         gradient: SECTOR_GRADIENTS.systems,
     },
     {
-        value: 50000,
-        suffix: '+',
-        label: 'Training Hours',
-        description: 'Continuous development',
+        value: 24,
+        suffix: '/7',
+        label: 'Innovation Cycle',
+        description: 'AI-accelerated workflows',
         gradient: SECTOR_GRADIENTS.skills,
     },
     {
-        value: 5,
-        suffix: '+',
-        label: 'Years Zero Incidents',
-        description: 'Safety first, always',
+        value: 100,
+        suffix: '%',
+        label: 'Safety Record',
+        description: 'Uncompromising standards',
         gradient: SECTOR_GRADIENTS.safety,
     },
 ];
@@ -54,6 +54,7 @@ export default function Stats() {
     return (
         <section
             ref={containerRef}
+            id="stats"
             className="relative py-24 md:py-40 bg-void overflow-hidden"
         >
             {/* Section header */}

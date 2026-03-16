@@ -1,9 +1,17 @@
 'use client';
 
 import { motion } from 'framer-motion';
+import { useState } from 'react';
 import VisualWrapper from '../VisualWrapper';
 
 export default function HazardAI() {
+    const [targets] = useState(() => 
+        [...Array(4)].map(() => ({
+            left: Math.random() * 60 + 20,
+            top: Math.random() * 60 + 20
+        }))
+    );
+
     return (
         <VisualWrapper gradientFrom="#330000" gradientTo="rgba(212, 1, 20, 0.2)">
             <div className="relative w-full h-full overflow-hidden">
@@ -15,13 +23,13 @@ export default function HazardAI() {
                 />
 
                 {/* Targets */}
-                {[...Array(4)].map((_, i) => (
+                {targets.map((target, i) => (
                     <motion.div
                         key={i}
                         className="absolute w-4 h-4 border border-[#D40114] rounded-sm"
                         style={{
-                            left: Math.random() * 60 + 20 + "%",
-                            top: Math.random() * 60 + 20 + "%"
+                            left: `${target.left}%`,
+                            top: `${target.top}%`
                         }}
                         animate={{ opacity: [0, 1, 0], scale: [1.2, 1, 1.2] }}
                         transition={{

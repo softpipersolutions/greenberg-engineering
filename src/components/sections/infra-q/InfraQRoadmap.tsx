@@ -1,7 +1,6 @@
 'use client';
 
-import { motion, useScroll, useTransform } from 'framer-motion';
-import { useRef } from 'react';
+import { motion } from 'framer-motion';
 
 const roadmapData = [
     {
@@ -58,7 +57,7 @@ export default function InfraQRoadmap() {
     );
 }
 
-function TimelineItem({ item, index }: { item: any, index: number }) {
+function TimelineItem({ item, index }: { item: { year: string, title: string, items: string[], status: string }, index: number }) {
     const isEven = index % 2 === 0;
 
     return (
